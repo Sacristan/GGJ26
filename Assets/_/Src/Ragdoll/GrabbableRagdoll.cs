@@ -17,21 +17,7 @@ public partial class GrabbableRagdoll : MonoBehaviour, IRagdollAnimator2Receiver
 {
     [SerializeField] private GrabbableRagdollConfig _config;
     public GrabbableRagdollConfig Config => _config;
-
-    private const float LOD_RAGDOLL_FADE_SPEED = 1f;
-    private const float LOD_MAX_DIST_TO_CAM = 6f;
-
     private static readonly List<Collider> tmpColliderList = new(16);
-
-    public delegate void OnBoneCollision(RA2BoneCollisionHandler bone, Collision collision);
-
-    public event Action onGrabBegin;
-    public event Action onBeforeXRSelectExit;
-    public event Action onGrabEnd;
-    public event Action onRagdollFalling;
-    public event Action onRagdollStanding;
-    public event Action onGrabFalling;
-    public event OnBoneCollision onBoneCollision;
 
     [SerializeField] public Renderer characterRenderer;
 
@@ -248,31 +234,9 @@ public partial class GrabbableRagdoll : MonoBehaviour, IRagdollAnimator2Receiver
 
         bool isInStandingMode = IsInStandingMode;
 
-        if (isInStandingMode && IsBeingGrabbed)
-        {
-            SetRagdollFalling();
-            onGrabFalling?.Invoke();
-        }
+        if (isInStandingMode && IsBeingGrabbed)  SetRagdollFalling();
 
-        if (!isInStandingMode && allowAutoGetUp)
-        {
-            TryGetUp();
-        }
-
-        // Dynamically turn ragdoll on/off for optimization.
-        {
-            bool shouldActivateRagdoll =
-                IsBeingGrabbed ||
-                !IsInStandingMode ||
-                (characterRenderer.isVisible &&
-                 EvalMainCamDistSq() < LOD_MAX_DIST_TO_CAM * LOD_MAX_DIST_TO_CAM);
-
-            float lodChangeValue = Time.deltaTime * LOD_RAGDOLL_FADE_SPEED;
-            if (shouldActivateRagdoll)
-                _ragdollLod.TurnOnTick(lodChangeValue);
-            else
-                _ragdollLod.TurnOffTick(lodChangeValue);
-        }
+        if (!isInStandingMode && allowAutoGetUp) TryGetUp();
     }
 
     private Coroutine _throwRoutine;
@@ -415,8 +379,6 @@ public partial class GrabbableRagdoll : MonoBehaviour, IRagdollAnimator2Receiver
         Collision collision)
     {
         TryFallOnCollision(bone, collision);
-
-        onBoneCollision?.Invoke(bone, collision);
     }
 
     // Make fall on strong collisions.
@@ -464,8 +426,6 @@ public partial class GrabbableRagdoll : MonoBehaviour, IRagdollAnimator2Receiver
         _ragdoll.User_SwitchFallState(standing: false);
         _lastFallTime = Time.time;
         _lyingStableDuration = 0f;
-
-        onRagdollFalling?.Invoke();
     }
 
     public void SetRagdollStanding()
@@ -480,89 +440,6 @@ public partial class GrabbableRagdoll : MonoBehaviour, IRagdollAnimator2Receiver
 
         _ragdoll.User_TransitionToStandingMode(0.5f, 0f, 0.1f, 0.2f);
         _lastGetUpTime = Time.time;
-
-        onRagdollStanding?.Invoke();
-    }
-
-    private float EvalMainCamDistSq()
-    {
-        if (_mainCamTransform == null)
-        {
-            _mainCamTransform = Camera.main!.transform;
-        }
-
-        Vector3 camPosNorm = _mainCamTransform.position;
-        camPosNorm.y = 0;
-
-        Vector3 ragdollPosNorm = _ragdoll.transform.position;
-        ragdollPosNorm.y = 0;
-
-        return (camPosNorm - ragdollPosNorm).sqrMagnitude;
-    }
-
-    public void TeleportInstantly(Vector3 targetPosition)
-    {
-        RagdollAnimator2 ragdoll = _ragdoll;
-        if (ragdoll.IsInFallingOrSleepMode)
-        {
-            Vector3 anchorBottom = ragdoll.User_GetPosition_AnchorBottom();
-            Vector3 positionDelta = targetPosition - anchorBottom;
-            ragdoll.Handler.CallOnAllRagdollBones(bone =>
-            {
-                Rigidbody body = bone.GameRigidbody;
-                if (!body.isKinematic)
-                {
-                    body.linearVelocity = Vector3.zero;
-                    body.angularVelocity = Vector3.zero;
-                }
-
-                body.MovePosition(body.position + positionDelta);
-            });
-        }
-        else
-        {
-            // This doesn't reliably work for when ragdoll is falling.
-            // So we use our custom bone move logic.
-            ragdoll.User_Teleport(targetPosition);
-        }
-    }
-
-    //TODO: This method is specific to each character's animator and should be moved to an appropriate place.
-    public void SetPanicFallMotion(bool isPanic)
-    {
-        float animVal = isPanic ? 1f : 0f;
-        _ragdoll.Mecanim.SetFloat("Fall Motion", animVal);
-    }
-
-    /// Configures all ragdoll bones to ignore collisions with
-    /// any colliders contained in the <paramref name="root"/>'s hierarchy.
-    /// <seealso cref="RagdollHandler.User_FindAllCollidersInsideAndIgnoreTheirCollisionWithDummyColliders"/>
-    [SuppressMessage("ReSharper", "AccessToDisposedClosure")]
-    public void IgnoreColliders(Transform root, bool ignore = true)
-    {
-        // Make sure all the colliders are still alive.
-        if (_allDummyColliders.Any(collider => collider == null))
-            return;
-
-        List<Collider> foundColliders = tmpColliderList;
-
-        root.ExecuteRecursively(transform =>
-        {
-            transform.GetComponents<Collider>(foundColliders);
-            if (foundColliders.Count == 0)
-                return;
-
-            Collider[] dummyColliders = _allDummyColliders;
-            for (int i = 0; i < foundColliders.Count; i++)
-            {
-                Collider foundCollider = foundColliders[i];
-                for (int j = 0; j < dummyColliders.Length; j++)
-                {
-                    Collider dummyCollider = dummyColliders[j];
-                    Physics.IgnoreCollision(foundCollider, dummyCollider, ignore);
-                }
-            }
-        });
     }
 
     private Coroutine forceActiveRagdollRoutine = null;

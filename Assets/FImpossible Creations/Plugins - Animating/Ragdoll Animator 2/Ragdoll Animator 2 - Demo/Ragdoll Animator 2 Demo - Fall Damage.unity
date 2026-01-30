@@ -1220,7 +1220,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1310321237946574750, guid: 4484670f665417340bb8ab0b78fcc8cb, type: 3}
       propertyPath: handler._EditorCategory
-      value: 4
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 1310321237946574750, guid: 4484670f665417340bb8ab0b78fcc8cb, type: 3}
       propertyPath: handler.AnchorBoneSpring
@@ -1458,6 +1458,26 @@ PrefabInstance:
       propertyPath: handler.ExtraFeatures.Array.data[5].FeatureReference
       value: 
       objectReference: {fileID: 11400000, guid: bc0b2dc1b6b44ec4fb5b7fd43331c140, type: 2}
+    - target: {fileID: 1310321237946574750, guid: 4484670f665417340bb8ab0b78fcc8cb, type: 3}
+      propertyPath: handler.chains.Array.data[0].ChainThicknessMultiplier
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1310321237946574750, guid: 4484670f665417340bb8ab0b78fcc8cb, type: 3}
+      propertyPath: handler.chains.Array.data[1].ChainThicknessMultiplier
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1310321237946574750, guid: 4484670f665417340bb8ab0b78fcc8cb, type: 3}
+      propertyPath: handler.chains.Array.data[2].ChainThicknessMultiplier
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1310321237946574750, guid: 4484670f665417340bb8ab0b78fcc8cb, type: 3}
+      propertyPath: handler.chains.Array.data[3].ChainThicknessMultiplier
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1310321237946574750, guid: 4484670f665417340bb8ab0b78fcc8cb, type: 3}
+      propertyPath: handler.chains.Array.data[4].ChainThicknessMultiplier
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1310321237946574750, guid: 4484670f665417340bb8ab0b78fcc8cb, type: 3}
       propertyPath: handler.ExtraFeatures.Array.data[0].variables.Array.size
       value: 0

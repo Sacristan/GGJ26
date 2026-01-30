@@ -287,6 +287,8 @@ public class GrabbableRagdollBodypart : XRBaseInteractable
 
     private void ApplyJointPreset(GrabbableRagdollConfig.JointPreset preset, float multiplier = 1f)
     {
+        return;
+        
         var j = ChainBone?.Joint;
         if (j == null) return;
 
