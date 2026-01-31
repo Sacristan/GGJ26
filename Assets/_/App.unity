@@ -15,9 +15,9 @@ RenderSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 10
   m_Fog: 1
-  m_FogColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
+  m_FogColor: {r: 0, g: 0, b: 0, a: 1}
   m_FogMode: 3
-  m_FogDensity: 0.05
+  m_FogDensity: 0.085
   m_LinearFogStart: 0
   m_LinearFogEnd: 300
   m_AmbientSkyColor: {r: 0.20599997, g: 0.46132573, b: 1, a: 1}
@@ -26,7 +26,7 @@ RenderSettings:
   m_AmbientIntensity: 1
   m_AmbientMode: 0
   m_SubtractiveShadowColor: {r: 0.3584906, g: 0.3584906, b: 0.3584906, a: 1}
-  m_SkyboxMaterial: {fileID: 2100000, guid: ec46d2188d4b8774e847e75f1e12a8db, type: 2}
+  m_SkyboxMaterial: {fileID: 2100000, guid: 9ad311224d0760e4c9678f0bc920d8a0, type: 2}
   m_HaloStrength: 0.5
   m_FlareStrength: 1
   m_FlareFadeSpeed: 3
@@ -365,7 +365,7 @@ MonoBehaviour:
   m_Center: {x: 0, y: 2, z: 0}
   m_LayerMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 1
   m_UseGeometry: 1
   m_DefaultArea: 0
   m_GenerateLinks: 0
@@ -15960,13 +15960,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2142235606}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: -0.7071068, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 5.2, y: 0, z: -3.3}
+  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
+  m_LocalPosition: {x: 4.39, y: 0, z: -30.48}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1418837974}
-  m_LocalEulerAnglesHint: {x: 0, y: -90, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!114 &2142235608
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -17345,11 +17345,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4130419382113895737, guid: c112858dd3ec6754bbc04d4ca2359b1b, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.085
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4130419382113895737, guid: c112858dd3ec6754bbc04d4ca2359b1b, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 3.111
+      value: 3.35
       objectReference: {fileID: 0}
     - target: {fileID: 4130419382113895737, guid: c112858dd3ec6754bbc04d4ca2359b1b, type: 3}
       propertyPath: m_LocalPosition.z
@@ -18450,7 +18450,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2857410967230933247, guid: 123bd547fb8940944a3822319ed82115, type: 3}
       propertyPath: m_Name
-      value: GameObject
+      value: Level
       objectReference: {fileID: 0}
     - target: {fileID: 5574982878042347669, guid: 123bd547fb8940944a3822319ed82115, type: 3}
       propertyPath: m_LocalPosition.x
@@ -18985,6 +18985,10 @@ PrefabInstance:
     - target: {fileID: 2288979251850280959, guid: e970170f4009b0b46873022274d813bc, type: 3}
       propertyPath: m_Name
       value: StampOfApproval
+      objectReference: {fileID: 0}
+    - target: {fileID: 2288979251850280959, guid: e970170f4009b0b46873022274d813bc, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2372672317760600608, guid: e970170f4009b0b46873022274d813bc, type: 3}
       propertyPath: m_LocalPosition.x
