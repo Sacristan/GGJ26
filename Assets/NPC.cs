@@ -32,15 +32,16 @@ public class NPC : MonoBehaviour
     }
 
     private Coroutine markSafeRoutine = null;
-    
+
     public void MarkSafe()
     {
         if (markSafeRoutine != null) return;
         markSafeRoutine = StartCoroutine(Routine());
-        
+
         IEnumerator Routine()
         {
             NPCSpawner.Instance.MarkSafe(this);
+            yield return new WaitForSeconds(1f);
             Locomotion.SetTarget(NPCSpawner.Instance.ExitLoc.transform);
             yield return new WaitUntil(() => Locomotion.IsCloseEnoughToTarget());
             Destroy(gameObject);
