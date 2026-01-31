@@ -1,16 +1,13 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using FIMSpace.FProceduralAnimation;
-using JetBrains.Annotations;
 using Unity.XR.CoreUtils;
 using UnityEngine;
 using UnityEngine.Assertions;
 using UnityEngine.Pool;
-using UnityEngine.XR.Interaction.Toolkit;
-using UnityEngine.XR.Interaction.Toolkit.Interactables;
+using UnityEngine.XR;
 
 [RequireComponent(typeof(RagdollAnimator2))]
 public partial class GrabbableRagdoll : MonoBehaviour, IRagdollAnimator2Receiver
@@ -25,8 +22,8 @@ public partial class GrabbableRagdoll : MonoBehaviour, IRagdollAnimator2Receiver
     [SerializeField] private bool allowFallOnCollision = false;
     [SerializeField] private bool canFall = true;
 
-    [Header("Grab dragging")] [SerializeField]
-    private float minDragDistanceToFall = 0.7f;
+
+    private float minDragDistanceToFall = 0.5f;
 
     [Header("Fall on collision")] [SerializeField]
     private float collisionFallForce = 25f;
@@ -69,7 +66,6 @@ public partial class GrabbableRagdoll : MonoBehaviour, IRagdollAnimator2Receiver
     private float _magnetOrigMotionInfluence;
     private bool _magnetOrigKinematicOnMax;
 
-    private Collider[] _allDummyColliders;
     private GrabbableRagdollBodypart[] _allGrabInteractables;
     private readonly List<GrabbableRagdollBodypart> _grabbedBodyparts = new();
 
@@ -78,12 +74,10 @@ public partial class GrabbableRagdoll : MonoBehaviour, IRagdollAnimator2Receiver
     private bool _hasStarted = false;
 
     private RagdollChainBone _anchorBone;
-    private float _anchorBoneRadius;
 
     private Transform _mainCamTransform = null;
 
     private float _lastGetUpTime = 0f;
-    private float _lastFallTime = 0f;
     private float _lastGrabEnterTime = 0f;
     private float _lastGrabExitTime = 0f;
     private float _lyingStableDuration = 0f;
@@ -95,8 +89,6 @@ public partial class GrabbableRagdoll : MonoBehaviour, IRagdollAnimator2Receiver
     public GrabbableRagdollBones Bones => _bones;
     public bool IsInStandingMode => _ragdoll.Handler.IsInStandingMode;
     public bool IsBeingGrabbed => _grabbedBodyparts is not null && _grabbedBodyparts.Any();
-    public float LastGrabEnterTime => _lastGrabEnterTime;
-    public float LastGrabExitTime => _lastGrabExitTime;
 
     public bool CanBeDragged
     {
@@ -173,8 +165,6 @@ public partial class GrabbableRagdoll : MonoBehaviour, IRagdollAnimator2Receiver
         // var dummyRef = ragdoll.Handler.DummyReference;
         // dummyRef.transform.parent = transform.parent;
 
-        _allDummyColliders = ragdoll.Handler.User_GetAllDummyColliders().ToArray();
-
         using (ListPool<GrabbableRagdollBodypart>.Get(
                    out List<GrabbableRagdollBodypart> grabbableRagdollBodyparts))
         {
@@ -199,13 +189,6 @@ public partial class GrabbableRagdoll : MonoBehaviour, IRagdollAnimator2Receiver
             _allGrabInteractables = grabbableRagdollBodyparts.ToArray();
         }
 
-        {
-            _anchorBone = ragdoll.Handler.GetAnchorBoneController;
-            // _anchorBoneRadius = _anchorBone.MainBoneCollider.bounds.size.MaxComponent() * 0.5f;
-            // _anchorBoneRadius = ((SphereCollider)_anchorBone.MainBoneCollider).radius * 0.5f;
-            _anchorBoneRadius = EvalBoundingSphereRadius(_anchorBone.MainBoneCollider) * 0.5f;
-        }
-
         _ragdollLod = new RagdollHandler.OptimizationHandler(ragdoll.Handler);
 
         SetRagdollStanding();
@@ -213,18 +196,41 @@ public partial class GrabbableRagdoll : MonoBehaviour, IRagdollAnimator2Receiver
         _hasStarted = true;
     }
 
-    public void OnGrabbed(GrabbableRagdollBodypart ragdollBodypart)
+    Dictionary<XRPlayerHand, Vector3> handInfo = new Dictionary<XRPlayerHand, Vector3>();
+
+    public void OnGrabbed(GrabbableRagdollBodypart ragdollBodypart, XRPlayerHand hand)
     {
+        handInfo[hand] = hand.transform.position;
+
         _grabbedBodyparts.Add(ragdollBodypart);
     }
 
-    public void OnReleased(GrabbableRagdollBodypart ragdollBodypart)
+    public void OnReleased(GrabbableRagdollBodypart ragdollBodypart, XRPlayerHand hand)
     {
+        handInfo.Remove(hand);
     }
 
-    public void ReleaseThisBodypart(GrabbableRagdollBodypart ragdollBodypart)
+    public void ReleaseBodypart(GrabbableRagdollBodypart ragdollBodypart)
     {
         _grabbedBodyparts.Remove(ragdollBodypart);
+    }
+
+    private void Update()
+    {
+        if (IsBeingGrabbed && IsInStandingMode)
+        {
+            foreach (var handI in handInfo)
+            {
+                float handDragDist = Vector3.Distance(handI.Key.transform.position, handI.Value);
+                // Debug.Log(handDragDist);
+                
+                if (handDragDist > minDragDistanceToFall)
+                {
+                    SetRagdollFalling();
+                    break;
+                }
+            }
+        }
     }
 
     private void LateUpdate()
@@ -233,20 +239,17 @@ public partial class GrabbableRagdoll : MonoBehaviour, IRagdollAnimator2Receiver
             return;
 
         bool isInStandingMode = IsInStandingMode;
-
-        if (isInStandingMode && IsBeingGrabbed) SetRagdollFalling();
-
-        if (!isInStandingMode && allowAutoGetUp) TryGetUp();
+        // if (isInStandingMode && IsBeingGrabbed) SetRagdollFalling();
     }
 
     private Coroutine _throwRoutine;
+
 
     public void ThrowRagdoll(Vector3 linearVel)
     {
         Debug.Log($"ThrowRagdoll mode={throwMode} lin={linearVel}", this);
 
         // Make sure it becomes a full ragdoll right now
-        SetRagdollFalling();
         // ForceActiveRagdoll(resetTimer: throwUngroundedTime);
 
         // Temporarily prevent get-up while flying
@@ -306,75 +309,6 @@ public partial class GrabbableRagdoll : MonoBehaviour, IRagdollAnimator2Receiver
         }
     }
 
-    private void TryGetUp()
-    {
-        return;
-
-        if (IsBeingGrabbed)
-            return;
-
-        RagdollHandler handler = _ragdoll.Handler;
-
-        float time = Time.time;
-        float fallingDuration = time - _lastFallTime;
-        if (fallingDuration < minFallingTime)
-            return;
-
-        // The velocity of core bones are in move, so not ready for getup
-        float avgTranslation = handler
-            .User_GetChainBonesAverageTranslation(ERagdollChainType.Core).magnitude;
-        const float noTranslationThreshold = 0.075f;
-        if (avgTranslation > noTranslationThreshold)
-        {
-            _lyingStableDuration = 0f;
-            return;
-        }
-
-        // The velocity of core bones are in move, so not ready for getup
-        const float maxAvgTorqSq = 1f;
-        float coreLowTransFactor = handler.User_CoreLowTranslationFactor(avgTranslation);
-        float chainAngularVelocitySq = handler.User_GetChainAngularVelocity(ERagdollChainType.Core).sqrMagnitude;
-        if (chainAngularVelocitySq >
-            maxAvgTorqSq * coreLowTransFactor * coreLowTransFactor)
-        {
-            _lyingStableDuration = 0f;
-            return;
-        }
-
-        // Let's be in static pose for a small amount of time
-        _lyingStableDuration += Time.deltaTime;
-        if (_lyingStableDuration < minLyingStableTime)
-            return;
-
-        // Check if there's ground below to stand up.
-        if (groundMask != 0)
-        {
-            // RagdollChainBone bone = _anchorBone;
-            // float distance = _anchorBoneRadius + groundCastExtraDist;
-            // Ray ray = new Ray( bone.PhysicalDummyBone.position, Vector3.down);
-            // Physics.Raycast(ray, out RaycastHit groundHit, distance, groundMask, QueryTriggerInteraction.Ignore);
-            bool hasHitGround = TryGroundCastFromHips(out RaycastHit groundHit);
-
-            // if (groundHit.transform is null)
-            if (!hasHitGround)
-            {
-                _lyingStableDuration = 0f;
-                return;
-            }
-        }
-
-        SetRagdollStanding();
-    }
-
-    private bool TryGroundCastFromHips(out RaycastHit groundHit)
-    {
-        RagdollChainBone bone = _anchorBone;
-        float distance = _anchorBoneRadius + groundCastExtraDist;
-        Ray ray = new Ray(bone.PhysicalDummyBone.position, Vector3.down);
-
-        return Physics.Raycast(ray, out groundHit, distance, groundMask, QueryTriggerInteraction.Ignore);
-    }
-
     void IRagdollAnimator2Receiver.RagdollAnimator2_OnCollisionEnterEvent(RA2BoneCollisionHandler bone,
         Collision collision)
     {
@@ -411,9 +345,10 @@ public partial class GrabbableRagdoll : MonoBehaviour, IRagdollAnimator2Receiver
     }
 
 
-
     public void SetRagdollFalling()
     {
+        Debug.Log($"SetRagdollFalling", this);
+        
         if (!IsInStandingMode)
             return;
 
@@ -424,17 +359,16 @@ public partial class GrabbableRagdoll : MonoBehaviour, IRagdollAnimator2Receiver
         //     _ragdollLod.TurnOnTick(1f);
         //     SyncRagdollWithAnimation(_ragdoll.Handler);
         // }
-        
+
         _ragdollLod.TurnOnTick(Time.fixedDeltaTime);
 
         _ragdoll.User_SwitchFallState(standing: false);
-        _lastFallTime = Time.time;
         _lyingStableDuration = 0f;
     }
 
     public void SetRagdollStanding()
     {
-        if (IsInStandingMode)  return;
+        if (IsInStandingMode) return;
         // if (TryGroundCastFromHips(out RaycastHit groundHit))
         // {
         //     _ragdoll.GetBaseTransform.position = groundHit.point;

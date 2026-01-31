@@ -26,6 +26,7 @@ public class GrabPointData
         Object.Destroy(InteractorOffsetPoint.gameObject);
     }
 }
+
 public class GrabbableRagdollBodypart : XRBaseInteractable
 {
     [SerializeField] private float detachDist = 1f;
@@ -190,7 +191,7 @@ public class GrabbableRagdollBodypart : XRBaseInteractable
         AttachHandToBone(hand, out Vector3 attachPos);
         SetupGrabPoint(args.interactorObject, attachPos);
 
-        _ragdoll.OnGrabbed(this);
+        _ragdoll.OnGrabbed(this, hand);
     }
 
     protected override void OnSelectExited(SelectExitEventArgs args)
@@ -200,21 +201,22 @@ public class GrabbableRagdollBodypart : XRBaseInteractable
 
         DestroyGrabPoint(args.interactorObject);
 
+        if (!XRPlayer.Instance.Hands.FindHandWithInteractor(args.interactorObject, out XRPlayerHand hand)) return;
+
         if (!IsSelected)
         {
-            _ragdoll.ReleaseThisBodypart(this);
-
-            if (XRPlayer.Instance.Hands.FindHandWithInteractor(args.interactorObject, out XRPlayerHand hand))
+            if (!_ragdoll.IsInStandingMode)
             {
                 Vector3 vel = hand.VelocityTracker.GetAveragedVelocity();
                 _ragdoll.ThrowRagdoll(vel);
             }
 
+            _ragdoll.ReleaseBodypart(this);
             ApplyPinned();
         }
 
         ForceDrop((XRBaseInteractor)args.interactorObject);
-        _ragdoll.OnReleased(this);
+        _ragdoll.OnReleased(this, hand);
     }
 
     private void AttachHandToBone(XRPlayerHand hand, out Vector3 attachPosition)
@@ -288,7 +290,7 @@ public class GrabbableRagdollBodypart : XRBaseInteractable
     private void ApplyJointPreset(GrabbableRagdollConfig.JointPreset preset, float multiplier = 1f)
     {
         return;
-        
+
         var j = ChainBone?.Joint;
         if (j == null) return;
 
