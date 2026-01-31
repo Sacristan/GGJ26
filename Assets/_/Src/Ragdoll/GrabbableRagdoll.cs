@@ -89,6 +89,7 @@ public partial class GrabbableRagdoll : MonoBehaviour, IRagdollAnimator2Receiver
 
     private bool _forceActiveRagdoll = false;
     NPCLocomotion _locomotion;
+    private NPC _npc;
 
     public RagdollAnimator2 RagdollAnimator => _ragdoll;
     public GrabbableRagdollBones Bones => _bones;
@@ -142,6 +143,7 @@ public partial class GrabbableRagdoll : MonoBehaviour, IRagdollAnimator2Receiver
 
     private IEnumerator Start()
     {
+        _npc = GetComponentInParent<NPC>();
         _ragdoll = GetComponent<RagdollAnimator2>();
         _locomotion = _ragdoll.GetBaseTransform.GetComponentInChildren<NPCLocomotion>();
         
@@ -154,7 +156,7 @@ public partial class GrabbableRagdoll : MonoBehaviour, IRagdollAnimator2Receiver
     }
 
     public float PinnedMultiplier => _grabbedBodyparts.Count > 0 ? 0.5f : 1f;
-
+    public NPC NPC => _npc;
 
     public void Init(Transform baseTransform)
     {

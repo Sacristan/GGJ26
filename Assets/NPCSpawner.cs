@@ -1,15 +1,24 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class NPCSpawner : MonoBehaviour
 {
+    public static NPCSpawner Instance { get; private set; }
+
     [SerializeField] private InspectLoc inspectLoc;
     [SerializeField] private InspectLoc[] queueLocs;
     [SerializeField] private NPC[] npcToSpawn;
 
     private List<NPC> queuedNPCs = new List<NPC>();
     private NPC currentInspectingNPC;
+
+    private void Awake()
+    {
+        Instance = this;
+    }
 
     private IEnumerator Start()
     {
@@ -19,7 +28,7 @@ public class NPCSpawner : MonoBehaviour
         }
 
         yield return null;
-        
+
         MoveToInspectPoint();
     }
 
@@ -40,7 +49,7 @@ public class NPCSpawner : MonoBehaviour
         // Move first NPC to inspect location
         currentInspectingNPC = queuedNPCs[0];
         queuedNPCs.RemoveAt(0);
-        
+
         // TODO: Call NPC method to move to inspect location
         currentInspectingNPC.MoveTo(inspectLoc);
 
@@ -54,13 +63,9 @@ public class NPCSpawner : MonoBehaviour
         }
     }
 
-    public void FreeInspectPoint()
+    private void FreeInspectPoint()
     {
-        if (currentInspectingNPC != null)
-        {
-            Destroy(currentInspectingNPC.gameObject);
-            currentInspectingNPC = null;
-        }
+        currentInspectingNPC = null;
     }
 
     private void MoveQueueForward()
@@ -70,23 +75,29 @@ public class NPCSpawner : MonoBehaviour
             if (queuedNPCs[i] != null)
             {
                 queuedNPCs[i].MoveTo(queueLocs[i]);
-                        
             }
         }
+    }
+
+    public void NPCHandled(NPC npc)
+    {
+        Destroy(npc.gameObject);
+        FreeInspectPoint();
+        MoveToInspectPoint();
     }
 
     private void SpawnNPCInQueue(int slotIndex)
     {
         Debug.Log($"Spawning NPC: @ {slotIndex}");
-        
+
         if (slotIndex >= queueLocs.Length) return;
 
         NPC newNPC = Instantiate(
-            npcToSpawn[Random.Range(0, npcToSpawn.Length)], 
-            queueLocs[slotIndex].transform.position, 
+            npcToSpawn[Random.Range(0, npcToSpawn.Length)],
+            queueLocs[slotIndex].transform.position,
             queueLocs[slotIndex].transform.rotation
         );
-        
+
         queuedNPCs.Add(newNPC);
     }
 }
