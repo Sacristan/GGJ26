@@ -12627,38 +12627,11 @@ ReflectionProbe:
   m_UseOcclusionCulling: 1
   m_Importance: 1
   m_CustomBakedTexture: {fileID: 0}
---- !u!1 &1605589602 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 6012904333612464279, guid: 79c35e0742e29eb44a3fd78d25b9bc4e, type: 3}
+--- !u!54 &1605589604 stripped
+Rigidbody:
+  m_CorrespondingSourceObject: {fileID: 6485210206689309921, guid: 79c35e0742e29eb44a3fd78d25b9bc4e, type: 3}
   m_PrefabInstance: {fileID: 1887899620}
   m_PrefabAsset: {fileID: 0}
---- !u!54 &1605589604
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1605589602}
-  serializedVersion: 4
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_CenterOfMass: {x: 0, y: 0, z: 0}
-  m_InertiaTensor: {x: 1, y: 1, z: 1}
-  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ImplicitCom: 1
-  m_ImplicitTensor: 1
-  m_UseGravity: 0
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
 --- !u!1 &1624025054
 GameObject:
   m_ObjectHideFlags: 0
@@ -14074,9 +14047,6 @@ PrefabInstance:
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 6012904333612464279, guid: 79c35e0742e29eb44a3fd78d25b9bc4e, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1605589604}
     - targetCorrespondingSourceObject: {fileID: 4246311899128322921, guid: 79c35e0742e29eb44a3fd78d25b9bc4e, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1887899622}
@@ -14101,15 +14071,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 468aebce5deb0524e9a915e73c77514b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxSpeed: 1
-  acceleration: 20
-  turnSpeedDeg: 720
-  stopDistance: 0.2
-  rotateTowardsVelocity: 1
-  animator: {fileID: 1935422941}
-  movingSpeedThreshold: 0.05
-  useActualVelocityForAnim: 1
   rb: {fileID: 1605589604}
+  animator: {fileID: 1935422941}
+  inspectLoc: {fileID: 1488018245}
+  stopDistance: 1
+  moveSpeed: 2.5
 --- !u!195 &1887899623
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -14120,7 +14086,7 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.5
-  m_Speed: 3.5
+  m_Speed: 1
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 120
