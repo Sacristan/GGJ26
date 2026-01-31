@@ -69,8 +69,16 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 4711208715938537054, guid: b43618aedd7473a4eb1aaa5e80012a1d, type: 3}
     - target: {fileID: 6234913458126536414, guid: 15e24de683f2283418cf0885e386a24e, type: 3}
+      propertyPath: handler.Calibrate
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6234913458126536414, guid: 15e24de683f2283418cf0885e386a24e, type: 3}
+      propertyPath: handler.DampingValue
+      value: 40
+      objectReference: {fileID: 0}
+    - target: {fileID: 6234913458126536414, guid: 15e24de683f2283418cf0885e386a24e, type: 3}
       propertyPath: handler._EditorCategory
-      value: 2
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 6234913458126536414, guid: 15e24de683f2283418cf0885e386a24e, type: 3}
       propertyPath: handler.RagdollDummyLayer
@@ -81,12 +89,36 @@ PrefabInstance:
       value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 6234913458126536414, guid: 15e24de683f2283418cf0885e386a24e, type: 3}
+      propertyPath: handler.DampingValueOnFall
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 6234913458126536414, guid: 15e24de683f2283418cf0885e386a24e, type: 3}
+      propertyPath: handler.MaxAngularVelocity
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 6234913458126536414, guid: 15e24de683f2283418cf0885e386a24e, type: 3}
+      propertyPath: handler._EditorMainCategory
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6234913458126536414, guid: 15e24de683f2283418cf0885e386a24e, type: 3}
+      propertyPath: handler.ConnectedMassMultiply
+      value: 0.75
+      objectReference: {fileID: 0}
+    - target: {fileID: 6234913458126536414, guid: 15e24de683f2283418cf0885e386a24e, type: 3}
+      propertyPath: handler._EditorMotionCategory
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6234913458126536414, guid: 15e24de683f2283418cf0885e386a24e, type: 3}
       propertyPath: handler._Editor_ChainCategory
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6234913458126536414, guid: 15e24de683f2283418cf0885e386a24e, type: 3}
       propertyPath: handler._Editor_SelectedChain
       value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 6234913458126536414, guid: 15e24de683f2283418cf0885e386a24e, type: 3}
+      propertyPath: handler.RigidbodyAngularDragValue
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 6234913458126536414, guid: 15e24de683f2283418cf0885e386a24e, type: 3}
       propertyPath: handler.chains.Array.data[0].Detach
@@ -335,6 +367,10 @@ PrefabInstance:
     - target: {fileID: 6234913458126536414, guid: 15e24de683f2283418cf0885e386a24e, type: 3}
       propertyPath: handler.chains.Array.data[4].ChainThicknessMultiplier
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6234913458126536414, guid: 15e24de683f2283418cf0885e386a24e, type: 3}
+      propertyPath: handler.ExtraFeatures.Array.data[4].variables.Array.size
+      value: 14
       objectReference: {fileID: 0}
     - target: {fileID: 6234913458126536414, guid: 15e24de683f2283418cf0885e386a24e, type: 3}
       propertyPath: handler.chains.Array.data[0].BoneSetups.Array.data[1].BoneID
@@ -1171,6 +1207,14 @@ PrefabInstance:
     - target: {fileID: 6234913458126536414, guid: 15e24de683f2283418cf0885e386a24e, type: 3}
       propertyPath: handler.chains.Array.data[4].BoneSetups.Array.data[2].MassMultiplier
       value: 0.0448
+      objectReference: {fileID: 0}
+    - target: {fileID: 6234913458126536414, guid: 15e24de683f2283418cf0885e386a24e, type: 3}
+      propertyPath: handler.ExtraFeatures.Array.data[1].variables.Array.data[11]._value.x
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6234913458126536414, guid: 15e24de683f2283418cf0885e386a24e, type: 3}
+      propertyPath: handler.ExtraFeatures.Array.data[4].variables.Array.data[13]._value.x
+      value: 0.2
       objectReference: {fileID: 0}
     - target: {fileID: 6234913458126536414, guid: 15e24de683f2283418cf0885e386a24e, type: 3}
       propertyPath: handler.StoredReferenceTPose.BonePoses.Array.data[10].localPosition.x
@@ -2147,6 +2191,10 @@ PrefabInstance:
     - target: {fileID: 6234913458126536414, guid: 15e24de683f2283418cf0885e386a24e, type: 3}
       propertyPath: handler.chains.Array.data[4].BoneSetups.Array.data[2].BoundedIgnoreScale
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6234913458126536414, guid: 15e24de683f2283418cf0885e386a24e, type: 3}
+      propertyPath: handler.ExtraFeatures.Array.data[4].variables.Array.data[13].VariableName
+      value: 'Raycast Scale:'
       objectReference: {fileID: 0}
     - target: {fileID: 6234913458126536414, guid: 15e24de683f2283418cf0885e386a24e, type: 3}
       propertyPath: handler.StoredReferenceTPose.BonePoses.Array.data[10].rootSpacePosition.x
@@ -3245,6 +3293,18 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6234913458126536414, guid: 15e24de683f2283418cf0885e386a24e, type: 3}
+      propertyPath: handler.ExtraFeatures.Array.data[4].variables.Array.data[13]._curve.m_PreInfinity
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6234913458126536414, guid: 15e24de683f2283418cf0885e386a24e, type: 3}
+      propertyPath: handler.ExtraFeatures.Array.data[4].variables.Array.data[13]._curve.m_PostInfinity
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6234913458126536414, guid: 15e24de683f2283418cf0885e386a24e, type: 3}
+      propertyPath: handler.ExtraFeatures.Array.data[4].variables.Array.data[13]._curve.m_RotationOrder
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 6234913458126536414, guid: 15e24de683f2283418cf0885e386a24e, type: 3}
       propertyPath: handler.chains.Array.data[0].BoneSetups.Array.data[0].colliders.Array.data[0].ColliderType
       value: 2
       objectReference: {fileID: 0}
@@ -3876,6 +3936,10 @@ PrefabInstance:
       propertyPath: characterRenderer
       value: 
       objectReference: {fileID: 7812433082351777415}
+    - target: {fileID: 8211805950617699785, guid: 15e24de683f2283418cf0885e386a24e, type: 3}
+      propertyPath: throwVelocityMultiplier
+      value: 1.5
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
@@ -3897,6 +3961,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 2122549041140888286}
     m_Modifications:
+    - target: {fileID: -8864929331187972240, guid: e6d796d545621fc4e8f376b05e184e88, type: 3}
+      propertyPath: m_AABB.m_Extent.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -8864929331187972240, guid: e6d796d545621fc4e8f376b05e184e88, type: 3}
+      propertyPath: m_AABB.m_Extent.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -8864929331187972240, guid: e6d796d545621fc4e8f376b05e184e88, type: 3}
+      propertyPath: m_AABB.m_Extent.z
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: e6d796d545621fc4e8f376b05e184e88, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0

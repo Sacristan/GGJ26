@@ -170,8 +170,8 @@ public partial class GrabbableRagdoll : MonoBehaviour, IRagdollAnimator2Receiver
             ragdoll.Handler.Initialize(ragdoll, gameObject);
         }
 
-        var dummyRef = ragdoll.Handler.DummyReference;
-        dummyRef.transform.parent = transform.parent;
+        // var dummyRef = ragdoll.Handler.DummyReference;
+        // dummyRef.transform.parent = transform.parent;
 
         _allDummyColliders = ragdoll.Handler.User_GetAllDummyColliders().ToArray();
 
@@ -234,7 +234,7 @@ public partial class GrabbableRagdoll : MonoBehaviour, IRagdollAnimator2Receiver
 
         bool isInStandingMode = IsInStandingMode;
 
-        if (isInStandingMode && IsBeingGrabbed)  SetRagdollFalling();
+        if (isInStandingMode && IsBeingGrabbed) SetRagdollFalling();
 
         if (!isInStandingMode && allowAutoGetUp) TryGetUp();
     }
@@ -247,7 +247,7 @@ public partial class GrabbableRagdoll : MonoBehaviour, IRagdollAnimator2Receiver
 
         // Make sure it becomes a full ragdoll right now
         SetRagdollFalling();
-        ForceActiveRagdoll(resetTimer: throwUngroundedTime);
+        // ForceActiveRagdoll(resetTimer: throwUngroundedTime);
 
         // Temporarily prevent get-up while flying
         if (_throwRoutine != null) StopCoroutine(_throwRoutine);
@@ -410,18 +410,22 @@ public partial class GrabbableRagdoll : MonoBehaviour, IRagdollAnimator2Receiver
         }
     }
 
+
+
     public void SetRagdollFalling()
     {
         if (!IsInStandingMode)
             return;
 
-        bool isRagdollFullyEnabled = Mathf.Approximately(1f, _ragdoll.Handler.GetTotalBlend());
-        if (!isRagdollFullyEnabled)
-        {
-            // Make sure to instantly match all bones to animation before ragdoll activation.
-            _ragdollLod.TurnOnTick(1f);
-            SyncRagdollWithAnimation(_ragdoll.Handler);
-        }
+        // bool isRagdollFullyEnabled = Mathf.Approximately(1f, _ragdoll.Handler.GetTotalBlend());
+        // if (!isRagdollFullyEnabled)
+        // {
+        //     // Make sure to instantly match all bones to animation before ragdoll activation.
+        //     _ragdollLod.TurnOnTick(1f);
+        //     SyncRagdollWithAnimation(_ragdoll.Handler);
+        // }
+        
+        _ragdollLod.TurnOnTick(Time.fixedDeltaTime);
 
         _ragdoll.User_SwitchFallState(standing: false);
         _lastFallTime = Time.time;
@@ -430,13 +434,11 @@ public partial class GrabbableRagdoll : MonoBehaviour, IRagdollAnimator2Receiver
 
     public void SetRagdollStanding()
     {
-        if (IsInStandingMode)
-            return;
-
-        if (TryGroundCastFromHips(out RaycastHit groundHit))
-        {
-            _ragdoll.GetBaseTransform.position = groundHit.point;
-        }
+        if (IsInStandingMode)  return;
+        // if (TryGroundCastFromHips(out RaycastHit groundHit))
+        // {
+        //     _ragdoll.GetBaseTransform.position = groundHit.point;
+        // }
 
         _ragdoll.User_TransitionToStandingMode(0.5f, 0f, 0.1f, 0.2f);
         _lastGetUpTime = Time.time;
