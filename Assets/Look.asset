@@ -1,0 +1,58 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 152a4cb9a94834e45bf4bae9626b344f, type: 3}
+  m_Name: Look
+  m_EditorClassIdentifier: Assembly-CSharp::NPC/CharacterPotentialLooks
+  bodyFine:
+    materials:
+    - {fileID: 2100000, guid: 0a6ff676bd3234347b2b478abcbb398c, type: 2}
+  bodyInfected:
+    materials:
+    - {fileID: 2100000, guid: d7ccb81a7fd9e7d44b836ff0a0050d4c, type: 2}
+    - {fileID: 2100000, guid: 0b0bdf71e6e21ec49a0bdc700e5ad611, type: 2}
+    - {fileID: 2100000, guid: 05deda638da0b6443bd1fcdc4f022f2e, type: 2}
+    - {fileID: 2100000, guid: 224eed8241a406e48862ca236843e697, type: 2}
+    - {fileID: 2100000, guid: 178f65124bf93b54599ea15da5a6db03, type: 2}
+    - {fileID: 2100000, guid: 0151ddb694f25724680895d62588f473, type: 2}
+    - {fileID: 2100000, guid: 85bb6b170de6b6441802f9f5289628cb, type: 2}
+    - {fileID: 2100000, guid: 0c5c4689655cac24ea49a5f2234a4ced, type: 2}
+    - {fileID: 2100000, guid: a83de84d1a43d5548ad790f849c55b65, type: 2}
+    - {fileID: 2100000, guid: 080fb924bf5d43949bdb67a1b53ee4c8, type: 2}
+  trousers:
+    materials:
+    - {fileID: 2100000, guid: 95f635c961494fa4e9066f22b44d1235, type: 2}
+  hairLook:
+    materials:
+    - {fileID: 2100000, guid: fafbbcf250958224089ef6a8904e2a0b, type: 2}
+    - {fileID: 2100000, guid: b649cee16147b474da2963eedc15546b, type: 2}
+    - {fileID: 2100000, guid: 4784a16fed72e2e4d8b77227222f8f3e, type: 2}
+    - {fileID: 2100000, guid: d80432d3df5247247b9b3e119e0cf7bf, type: 2}
+    - {fileID: 2100000, guid: cac203ef33517e24e83d392e9c7e4d70, type: 2}
+    - {fileID: 2100000, guid: 4e024d70295cc1349b0873a629818c71, type: 2}
+    - {fileID: 2100000, guid: eb3a6f7ae6b0cb64680116dec8c28723, type: 2}
+  eyesFine:
+    materials:
+    - {fileID: 2100000, guid: b4e4f1cd79480344a9ee79facc58c90c, type: 2}
+  eyesInfected:
+    materials:
+    - {fileID: 2100000, guid: 4e57fbcd846ea0c4db682850a8c76332, type: 2}
+    - {fileID: 2100000, guid: fba8ac65bf83fe54787c9d046fc10770, type: 2}
+    - {fileID: 2100000, guid: 2dd169370854bad408b818a39b1866d2, type: 2}
+    - {fileID: 2100000, guid: bbd9bd5caa699b045a6f23f8b064e788, type: 2}
+  shirtLook:
+    materials:
+    - {fileID: 2100000, guid: b50c990e1c2e4bc468d2043e4c442159, type: 2}
+    - {fileID: 2100000, guid: 042c70bbebbf6cf4597d2fc1a24b665a, type: 2}
+    - {fileID: 2100000, guid: b44ef2451c674554086be122eef9cfc0, type: 2}
+    - {fileID: 2100000, guid: bf49a343a765af845a6869fa98e86e3a, type: 2}
+    - {fileID: 2100000, guid: 8cdaa81fde7ca624db7d90fc7aa27a19, type: 2}
+    - {fileID: 2100000, guid: df7517482cafc1f469ba625c75fac7d5, type: 2}

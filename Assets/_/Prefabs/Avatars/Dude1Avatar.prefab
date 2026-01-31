@@ -48,6 +48,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4730899717446920464, guid: 15e24de683f2283418cf0885e386a24e, type: 3}
+      propertyPath: look
+      value: 
+      objectReference: {fileID: 4765488880233296837}
+    - target: {fileID: 4730899717446920464, guid: 15e24de683f2283418cf0885e386a24e, type: 3}
+      propertyPath: charLooks
+      value: 
+      objectReference: {fileID: 11400000, guid: 3b9dbb0ffc9a59547b7e57d5c8c8e249, type: 2}
+    - target: {fileID: 4730899717446920464, guid: 15e24de683f2283418cf0885e386a24e, type: 3}
+      propertyPath: locomotion
+      value: 
+      objectReference: {fileID: 5148093738012013724}
     - target: {fileID: 6234913458126536414, guid: 15e24de683f2283418cf0885e386a24e, type: 3}
       propertyPath: handler.m_box
       value: 
@@ -3993,6 +4005,10 @@ PrefabInstance:
       propertyPath: handler.chains.Array.data[4].BoneSetups.Array.data[2].colliders.Array.data[0].ColliderSizeMultiply
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 7050866535039226001, guid: 15e24de683f2283418cf0885e386a24e, type: 3}
+      propertyPath: skinnedMeshRenderer
+      value: 
+      objectReference: {fileID: 7812433082351777415}
     - target: {fileID: 8109293532997639107, guid: 15e24de683f2283418cf0885e386a24e, type: 3}
       propertyPath: m_Name
       value: Dude1Avatar
@@ -4044,7 +4060,6 @@ MonoBehaviour:
   rb: {fileID: 6485210206689309921}
   animator: {fileID: 4177284827911769190}
   ragdoll: {fileID: 5912642624410560157}
-  inspectLoc: {fileID: 0}
   stopDistance: 0.35
   moveSpeed: 2.5
   rotateSpeed: 50
@@ -4071,6 +4086,17 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!114 &4765488880233296837 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7050866535039226001, guid: 15e24de683f2283418cf0885e386a24e, type: 3}
+  m_PrefabInstance: {fileID: 2592911351442760532}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5929d041c517206479599dc7af40a84f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &5912642624410560157 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8211805950617699785, guid: 15e24de683f2283418cf0885e386a24e, type: 3}
@@ -4107,6 +4133,14 @@ PrefabInstance:
       propertyPath: m_AABB.m_Extent.z
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: -8864929331187972240, guid: e6d796d545621fc4e8f376b05e184e88, type: 3}
+      propertyPath: 'm_Materials.Array.data[2]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 4e024d70295cc1349b0873a629818c71, type: 2}
+    - target: {fileID: -8864929331187972240, guid: e6d796d545621fc4e8f376b05e184e88, type: 3}
+      propertyPath: 'm_Materials.Array.data[4]'
+      value: 
+      objectReference: {fileID: 2100000, guid: b50c990e1c2e4bc468d2043e4c442159, type: 2}
     - target: {fileID: -8679921383154817045, guid: e6d796d545621fc4e8f376b05e184e88, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0

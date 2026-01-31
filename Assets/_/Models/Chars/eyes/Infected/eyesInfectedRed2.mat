@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &-70217051210765955
+--- !u!114 &-3825577450131530664
 MonoBehaviour:
   m_ObjectHideFlags: 11
   m_CorrespondingSourceObject: {fileID: 0}
@@ -20,7 +20,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: shirt
+  m_Name: eyesInfectedRed2
   m_Shader: {fileID: -6465566751694194690, guid: 68e4c3e6b328a3c43ab391277567cae2, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
@@ -33,7 +33,7 @@ Material:
   stringTagMap: {}
   disabledShaderPasses:
   - MOTIONVECTORS
-  m_LockedProperties: 
+  m_LockedProperties: _ApplyRamp
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
@@ -106,7 +106,7 @@ Material:
     - _AddPrecomputedVelocity: 0
     - _AlphaClip: 0
     - _AlphaToMask: 0
-    - _ApplyRamp: 0
+    - _ApplyRamp: 1
     - _BaseIntensity: 2
     - _Blend: 0
     - _BlendModePreserveSpecular: 1
@@ -126,12 +126,12 @@ Material:
     - _Metallic: 0
     - _Mode: 0
     - _OcclusionStrength: 1
-    - _OverlayStrength: 1
+    - _OverlayStrength: 0
     - _Parallax: 0.02
     - _QueueControl: 0
     - _QueueOffset: 0
     - _RampSmoothness: 0
-    - _RampSteps: 2
+    - _RampSteps: 5
     - _ReceiveShadows: 1
     - _Smoothness: 0
     - _SmoothnessTextureChannel: 0
@@ -143,10 +143,10 @@ Material:
     - _WorkflowMode: 0
     - _ZWrite: 1
     m_Colors:
-    - _BaseColor: {r: 0, g: 0, b: 0, a: 1}
-    - _Color: {r: 0.14901969, g: 0, b: 1, a: 1}
+    - _BaseColor: {r: 1, g: 0, b: 0, a: 1}
+    - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 0}
-    - _OverlayTint: {r: 0, g: 0, b: 0, a: 0}
+    - _OverlayTint: {r: 1, g: 1, b: 1, a: 0}
     - _RampShadowColor: {r: 1, g: 1, b: 1, a: 0}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
   m_BuildTextureStacks: []
