@@ -4121,6 +4121,17 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 493944547}
   m_CullTransparentMesh: 1
+--- !u!114 &498934348 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5912642624410560157, guid: 79c35e0742e29eb44a3fd78d25b9bc4e, type: 3}
+  m_PrefabInstance: {fileID: 1887899620}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2a81eb55020a3b942aba492a91a984f3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &528032898
 GameObject:
   m_ObjectHideFlags: 0
@@ -14074,8 +14085,10 @@ MonoBehaviour:
   rb: {fileID: 1605589604}
   animator: {fileID: 1935422941}
   inspectLoc: {fileID: 1488018245}
-  stopDistance: 1
+  stopDistance: 0.2
   moveSpeed: 2.5
+  rotateSpeed: 10
+  ragdoll: {fileID: 498934348}
 --- !u!195 &1887899623
 NavMeshAgent:
   m_ObjectHideFlags: 0

@@ -11,8 +11,9 @@ public class NPCLocomotion : MonoBehaviour
     [SerializeField] float stopDistance = 1f;
     [SerializeField] float moveSpeed = 2.5f;
     [SerializeField] float rotateSpeed = 10f;
-
-    bool AllowNavigation => true;
+    [SerializeField] GrabbableRagdoll ragdoll;
+    
+    bool AllowNavigation => ragdoll.IsInStandingMode;
 
     void Awake()
     {
