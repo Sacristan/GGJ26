@@ -12,6 +12,9 @@ using UnityEngine.XR;
 [RequireComponent(typeof(RagdollAnimator2))]
 public partial class GrabbableRagdoll : MonoBehaviour, IRagdollAnimator2Receiver
 {
+    public event System.Action OnGotUp;
+    public event System.Action<bool> OnGrabStateChanged;
+    
     [SerializeField] private GrabbableRagdollConfig _config;
     public GrabbableRagdollConfig Config => _config;
     private static readonly List<Collider> tmpColliderList = new(16);
@@ -202,6 +205,11 @@ public partial class GrabbableRagdoll : MonoBehaviour, IRagdollAnimator2Receiver
     {
         handInfo[hand] = hand.transform.position;
 
+        if (_grabbedBodyparts.Count == 0)
+        {
+            OnGrabStateChanged?.Invoke(true);
+        }
+
         _grabbedBodyparts.Add(ragdollBodypart);
     }
 
@@ -213,6 +221,8 @@ public partial class GrabbableRagdoll : MonoBehaviour, IRagdollAnimator2Receiver
     public void ReleaseBodypart(GrabbableRagdollBodypart ragdollBodypart)
     {
         _grabbedBodyparts.Remove(ragdollBodypart);
+        
+        if(_grabbedBodyparts.Count == 0) OnGrabStateChanged?.Invoke(false);
     }
 
     private void Update()

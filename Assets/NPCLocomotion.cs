@@ -1,19 +1,64 @@
+using System;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
+
+
+public class CoroutineSingleton
+{
+    private readonly MonoBehaviour _owner;
+    private Coroutine _currentCoroutine;
+
+    public CoroutineSingleton(MonoBehaviour owner)
+    {
+        _owner = owner;
+    }
+
+    public void Run(IEnumerator routine)
+    {
+        // Stop previous coroutine if it exists
+        if (_currentCoroutine != null)
+        {
+            _owner.StopCoroutine(_currentCoroutine);
+        }
+
+        // Start new coroutine
+        _currentCoroutine = _owner.StartCoroutine(WrapRoutine(routine));
+    }
+
+    private IEnumerator WrapRoutine(IEnumerator routine)
+    {
+        yield return routine;
+        _currentCoroutine = null;
+    }
+
+    public void Stop()
+    {
+        if (_currentCoroutine != null)
+        {
+            _owner.StopCoroutine(_currentCoroutine);
+            _currentCoroutine = null;
+        }
+    }
+
+    public bool IsRunning => _currentCoroutine != null;
+}
 
 public class NPCLocomotion : MonoBehaviour
 {
     NavMeshAgent agent;
     [SerializeField] Rigidbody rb;
     [SerializeField] Animator animator;
+    [SerializeField] GrabbableRagdoll ragdoll;
 
     [SerializeField] Transform inspectLoc;
     [SerializeField] float stopDistance = 1f;
     [SerializeField] float moveSpeed = 2.5f;
     [SerializeField] float rotateSpeed = 10f;
-    [SerializeField] GrabbableRagdoll ragdoll;
-    
-    bool AllowNavigation => ragdoll.IsInStandingMode;
+    [SerializeField] float navDelayTimer = 1f;
+
+    private bool allowNavigation = true;
+    bool AllowNavigation => allowNavigation;
 
     void Awake()
     {
@@ -21,6 +66,43 @@ public class NPCLocomotion : MonoBehaviour
 
         agent.updatePosition = false;
         agent.updateRotation = false;
+    }
+
+    private CoroutineSingleton setNavDelayedRunner;
+
+    private void Start()
+    {
+        ragdoll.OnGrabStateChanged += RagdollGrabStateChanged;
+        ragdoll.OnGotUp += GotUp;
+    }
+
+    private void GotUp()
+    {
+        SetNavFlagDelayed(true);
+    }
+
+    public void RagdollGrabStateChanged(bool isGrabbed)
+    {
+        if (isGrabbed) SetNavFlagImmediate(false);
+        else SetNavFlagDelayed(true);
+    }
+
+
+    void SetNavFlagDelayed(bool flag)
+    {
+        setNavDelayedRunner ??= new(this);
+        setNavDelayedRunner.Run(Routine());
+
+        IEnumerator Routine()
+        {
+            yield return new WaitForSeconds(navDelayTimer);
+            SetNavFlagImmediate(flag);
+        }
+    }
+
+    void SetNavFlagImmediate(bool flag)
+    {
+        allowNavigation = flag;
     }
 
     void Update()
@@ -59,6 +141,7 @@ public class NPCLocomotion : MonoBehaviour
         if (dir.sqrMagnitude > 0.0001f)
         {
             Quaternion targetRot = Quaternion.LookRotation(dir);
+
             rb.MoveRotation(
                 Quaternion.Slerp(rb.rotation, targetRot, rotateSpeed * Time.fixedDeltaTime)
             );
