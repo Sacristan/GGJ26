@@ -813,6 +813,8 @@ GameObject:
   m_Component:
   - component: {fileID: 4507839591358566794}
   - component: {fileID: 8789838382728927157}
+  - component: {fileID: 7050866535039226001}
+  - component: {fileID: 4730899717446920464}
   m_Layer: 0
   m_Name: AvatarBase
   m_TagString: Untagged
@@ -864,3 +866,27 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &7050866535039226001
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8109293532997639107}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5929d041c517206479599dc7af40a84f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &4730899717446920464
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8109293532997639107}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8cec7e5599c886446ac37da16ad1cc00, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

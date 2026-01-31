@@ -51,12 +51,18 @@ public class NPCLocomotion : MonoBehaviour
     [SerializeField] Animator animator;
     [SerializeField] GrabbableRagdoll ragdoll;
 
-    [SerializeField] Transform inspectLoc;
     [SerializeField] float stopDistance = 1f;
     [SerializeField] float moveSpeed = 2.5f;
     [SerializeField] float rotateSpeed = 10f;
     [SerializeField] float navDelayTimer = 1f;
+    
+    Transform targetLoc;
 
+    public void SetTarget(Transform target)
+    {
+        targetLoc = target;
+    }
+    
     private bool allowNavigation = true;
     bool AllowNavigation => allowNavigation;
 
@@ -123,12 +129,12 @@ public class NPCLocomotion : MonoBehaviour
             return;
         }
 
-        if (inspectLoc)
+        if (targetLoc)
         {
-            float d = Vector3.Distance(transform.position, inspectLoc.position);
+            float d = Vector3.Distance(transform.position, targetLoc.position);
 
             if (d > stopDistance)
-                agent.SetDestination(inspectLoc.position);
+                agent.SetDestination(targetLoc.position);
             else
                 agent.ResetPath();
         }
