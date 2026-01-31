@@ -14012,7 +14012,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2122549041140888286, guid: 79c35e0742e29eb44a3fd78d25b9bc4e, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 2.51
+      value: 0.42
       objectReference: {fileID: 0}
     - target: {fileID: 2122549041140888286, guid: 79c35e0742e29eb44a3fd78d25b9bc4e, type: 3}
       propertyPath: m_LocalPosition.y
@@ -14020,7 +14020,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2122549041140888286, guid: 79c35e0742e29eb44a3fd78d25b9bc4e, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 7.1
+      value: 5.12
       objectReference: {fileID: 0}
     - target: {fileID: 2122549041140888286, guid: 79c35e0742e29eb44a3fd78d25b9bc4e, type: 3}
       propertyPath: m_LocalRotation.w
@@ -14054,9 +14054,25 @@ PrefabInstance:
       propertyPath: m_AnimatePhysics
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 5912642624410560157, guid: 79c35e0742e29eb44a3fd78d25b9bc4e, type: 3}
+      propertyPath: locomotion
+      value: 
+      objectReference: {fileID: 1887899622}
     - target: {fileID: 6012904333612464279, guid: 79c35e0742e29eb44a3fd78d25b9bc4e, type: 3}
       propertyPath: m_Name
       value: Dude1Avatar
+      objectReference: {fileID: 0}
+    - target: {fileID: 8465927149901962634, guid: 79c35e0742e29eb44a3fd78d25b9bc4e, type: 3}
+      propertyPath: handler._EditorCategory
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8465927149901962634, guid: 79c35e0742e29eb44a3fd78d25b9bc4e, type: 3}
+      propertyPath: handler.ExtraFeatures.Array.data[1].variables.Array.data[10]._value.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8465927149901962634, guid: 79c35e0742e29eb44a3fd78d25b9bc4e, type: 3}
+      propertyPath: handler.ExtraFeatures.Array.data[1].variables.Array.data[12]._value.x
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -14093,6 +14109,7 @@ MonoBehaviour:
   stopDistance: 0.35
   moveSpeed: 2.5
   rotateSpeed: 50
+  navDelayTimer: 1
 --- !u!195 &1887899623
 NavMeshAgent:
   m_ObjectHideFlags: 0

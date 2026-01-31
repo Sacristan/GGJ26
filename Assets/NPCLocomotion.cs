@@ -74,6 +74,12 @@ public class NPCLocomotion : MonoBehaviour
     {
         ragdoll.OnGrabStateChanged += RagdollGrabStateChanged;
         ragdoll.OnGotUp += GotUp;
+        ragdoll.OnThrown += RagdollOnThrown;
+    }
+
+    private void RagdollOnThrown()
+    {
+        SetNavFlagImmediate(false);
     }
 
     private void GotUp()
@@ -86,7 +92,6 @@ public class NPCLocomotion : MonoBehaviour
         if (isGrabbed) SetNavFlagImmediate(false);
         else SetNavFlagDelayed(true);
     }
-
 
     void SetNavFlagDelayed(bool flag)
     {
@@ -103,6 +108,7 @@ public class NPCLocomotion : MonoBehaviour
     void SetNavFlagImmediate(bool flag)
     {
         allowNavigation = flag;
+        setNavDelayedRunner?.Stop();
     }
 
     void Update()
