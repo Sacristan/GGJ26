@@ -107,7 +107,7 @@ Material:
     - _AlphaClip: 0
     - _AlphaToMask: 0
     - _ApplyRamp: 0
-    - _BaseIntensity: 1
+    - _BaseIntensity: 2
     - _Blend: 0
     - _BlendModePreserveSpecular: 1
     - _BumpScale: 1
