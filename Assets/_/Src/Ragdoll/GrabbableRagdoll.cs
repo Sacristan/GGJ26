@@ -162,8 +162,8 @@ public partial class GrabbableRagdoll : MonoBehaviour, IRagdollAnimator2Receiver
             ragdoll.Handler.Initialize(ragdoll, gameObject);
         }
 
-        // var dummyRef = ragdoll.Handler.DummyReference;
-        // dummyRef.transform.parent = transform.parent;
+        var dummyRef = ragdoll.Handler.DummyReference;
+        dummyRef.transform.parent = transform.parent;
 
         using (ListPool<GrabbableRagdollBodypart>.Get(
                    out List<GrabbableRagdollBodypart> grabbableRagdollBodyparts))
@@ -205,7 +205,7 @@ public partial class GrabbableRagdoll : MonoBehaviour, IRagdollAnimator2Receiver
         _grabbedBodyparts.Add(ragdollBodypart);
     }
 
-    public void OnReleased(GrabbableRagdollBodypart ragdollBodypart, XRPlayerHand hand)
+    public void OnHandReleased(GrabbableRagdollBodypart ragdollBodypart, XRPlayerHand hand)
     {
         handInfo.Remove(hand);
     }

@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Anchor
   - CinemachineTarget
+  - InspectPos
   layers:
   - Default
   - TransparentFX

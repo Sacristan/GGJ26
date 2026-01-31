@@ -216,7 +216,7 @@ public class GrabbableRagdollBodypart : XRBaseInteractable
         }
 
         ForceDrop((XRBaseInteractor)args.interactorObject);
-        _ragdoll.OnReleased(this, hand);
+        _ragdoll.OnHandReleased(this, hand);
     }
 
     private void AttachHandToBone(XRPlayerHand hand, out Vector3 attachPosition)
