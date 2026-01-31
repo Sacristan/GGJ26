@@ -14011,16 +14011,8 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 2122549041140888286, guid: 79c35e0742e29eb44a3fd78d25b9bc4e, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0.42
-      objectReference: {fileID: 0}
-    - target: {fileID: 2122549041140888286, guid: 79c35e0742e29eb44a3fd78d25b9bc4e, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2122549041140888286, guid: 79c35e0742e29eb44a3fd78d25b9bc4e, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 5.12
+      value: 4.75
       objectReference: {fileID: 0}
     - target: {fileID: 2122549041140888286, guid: 79c35e0742e29eb44a3fd78d25b9bc4e, type: 3}
       propertyPath: m_LocalRotation.w
@@ -14109,7 +14101,7 @@ MonoBehaviour:
   stopDistance: 0.35
   moveSpeed: 2.5
   rotateSpeed: 50
-  navDelayTimer: 1
+  navDelayTimer: 2
 --- !u!195 &1887899623
 NavMeshAgent:
   m_ObjectHideFlags: 0

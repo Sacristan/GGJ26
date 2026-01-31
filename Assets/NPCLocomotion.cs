@@ -90,7 +90,10 @@ public class NPCLocomotion : MonoBehaviour
     public void RagdollGrabStateChanged(bool isGrabbed)
     {
         if (isGrabbed) SetNavFlagImmediate(false);
-        else SetNavFlagDelayed(true);
+        else
+        {
+            if (ragdoll.IsInStandingMode) SetNavFlagDelayed(true); //else wait for get up
+        }
     }
 
     void SetNavFlagDelayed(bool flag)
