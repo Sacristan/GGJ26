@@ -18,7 +18,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4507839591358566794, guid: 15e24de683f2283418cf0885e386a24e, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 1.5
+      value: 4.75
       objectReference: {fileID: 0}
     - target: {fileID: 4507839591358566794, guid: 15e24de683f2283418cf0885e386a24e, type: 3}
       propertyPath: m_LocalRotation.w
@@ -26,7 +26,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4507839591358566794, guid: 15e24de683f2283418cf0885e386a24e, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 4507839591358566794, guid: 15e24de683f2283418cf0885e386a24e, type: 3}
       propertyPath: m_LocalRotation.y
@@ -34,7 +34,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4507839591358566794, guid: 15e24de683f2283418cf0885e386a24e, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 4507839591358566794, guid: 15e24de683f2283418cf0885e386a24e, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -78,7 +78,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6234913458126536414, guid: 15e24de683f2283418cf0885e386a24e, type: 3}
       propertyPath: handler._EditorCategory
-      value: 4
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 6234913458126536414, guid: 15e24de683f2283418cf0885e386a24e, type: 3}
       propertyPath: handler.RagdollDummyLayer
@@ -1222,8 +1222,16 @@ PrefabInstance:
       value: 0.0448
       objectReference: {fileID: 0}
     - target: {fileID: 6234913458126536414, guid: 15e24de683f2283418cf0885e386a24e, type: 3}
+      propertyPath: handler.ExtraFeatures.Array.data[1].variables.Array.data[10]._value.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6234913458126536414, guid: 15e24de683f2283418cf0885e386a24e, type: 3}
       propertyPath: handler.ExtraFeatures.Array.data[1].variables.Array.data[11]._value.x
       value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 6234913458126536414, guid: 15e24de683f2283418cf0885e386a24e, type: 3}
+      propertyPath: handler.ExtraFeatures.Array.data[1].variables.Array.data[12]._value.x
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6234913458126536414, guid: 15e24de683f2283418cf0885e386a24e, type: 3}
       propertyPath: handler.ExtraFeatures.Array.data[4].variables.Array.data[10]._value.x
@@ -4003,11 +4011,80 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 4507839591358566794, guid: 15e24de683f2283418cf0885e386a24e, type: 3}
       insertIndex: -1
       addedObject: {fileID: 8005322883783104028}
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 1807686237807196221, guid: 15e24de683f2283418cf0885e386a24e, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 5148093738012013724}
+    - targetCorrespondingSourceObject: {fileID: 1807686237807196221, guid: 15e24de683f2283418cf0885e386a24e, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 3236986614226841743}
   m_SourcePrefab: {fileID: 100100000, guid: 15e24de683f2283418cf0885e386a24e, type: 3}
 --- !u!4 &2122549041140888286 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4507839591358566794, guid: 15e24de683f2283418cf0885e386a24e, type: 3}
+  m_PrefabInstance: {fileID: 2592911351442760532}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &4246311899128322921 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1807686237807196221, guid: 15e24de683f2283418cf0885e386a24e, type: 3}
+  m_PrefabInstance: {fileID: 2592911351442760532}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &5148093738012013724
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4246311899128322921}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 468aebce5deb0524e9a915e73c77514b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rb: {fileID: 6485210206689309921}
+  animator: {fileID: 4177284827911769190}
+  ragdoll: {fileID: 5912642624410560157}
+  inspectLoc: {fileID: 0}
+  stopDistance: 0.35
+  moveSpeed: 2.5
+  rotateSpeed: 50
+  navDelayTimer: 2
+--- !u!195 &3236986614226841743
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4246311899128322921}
+  m_Enabled: 1
+  m_AgentTypeID: 0
+  m_Radius: 0.5
+  m_Speed: 1
+  m_Acceleration: 8
+  avoidancePriority: 50
+  m_AngularSpeed: 120
+  m_StoppingDistance: 0
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 2
+  m_BaseOffset: 0
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4
+--- !u!114 &5912642624410560157 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8211805950617699785, guid: 15e24de683f2283418cf0885e386a24e, type: 3}
+  m_PrefabInstance: {fileID: 2592911351442760532}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2a81eb55020a3b942aba492a91a984f3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!54 &6485210206689309921 stripped
+Rigidbody:
+  m_CorrespondingSourceObject: {fileID: 8789838382728927157, guid: 15e24de683f2283418cf0885e386a24e, type: 3}
   m_PrefabInstance: {fileID: 2592911351442760532}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &7535128844186939895
@@ -4086,6 +4163,10 @@ PrefabInstance:
       propertyPath: m_Controller
       value: 
       objectReference: {fileID: 9100000, guid: 59e30e627384e9c42aafe8905d9c98f2, type: 2}
+    - target: {fileID: 5866666021909216657, guid: e6d796d545621fc4e8f376b05e184e88, type: 3}
+      propertyPath: m_AnimatePhysics
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
