@@ -25,27 +25,25 @@ public class CharacterPotentialLooks : ScriptableObject
 
     [SerializeField] public Look shirtLook;
 
-    private bool isInfected = false;
+    Look GetBody(bool isInfected) => isInfected ? bodyInfected : bodyFine;
+    Look GetTrousers(bool isInfected) => trousers;
+    Look GetHair(bool isInfected) => hairLook;
+    Look GetEyes(bool isInfected) => isInfected ? eyesInfected : eyesFine;
+    Look GetShirt(bool isInfected) => shirtLook;
 
-    Look Body => isInfected ? bodyInfected : bodyFine;
-    Look Trousers => trousers;
-    Look Hair => hairLook;
-    Look Eyes => isInfected ? eyesInfected : eyesFine;
-    Look Shirt => shirtLook;
-
-    public Material[] Randomise()
+    public (bool, Material[]) Randomise()
     {
-        isInfected = Random.value < 0.5f;
+        bool isInfected = Random.value < 0.5f;
 
         Material[] materials = new[]
         {
-            Body.GetMaterial(),
-            Trousers.GetMaterial(),
-            Hair.GetMaterial(),
-            Eyes.GetMaterial(),
-            Shirt.GetMaterial()
+            GetBody(isInfected).GetMaterial(),
+            GetTrousers(isInfected).GetMaterial(),
+            GetHair(isInfected).GetMaterial(),
+            GetEyes(isInfected).GetMaterial(),
+            GetShirt(isInfected).GetMaterial()
         };
 
-        return materials;
+        return (isInfected, materials);
     }
 }

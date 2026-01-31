@@ -13,7 +13,8 @@ public class Incinerator : MonoBehaviour
 
             if (!ragdoll.IsInStandingMode)
             {
-                NPCSpawner.Instance.NPCHandled(bodypart.Ragdoll.NPC);
+                bodypart.Ragdoll.NPC.Incinerate();
+                
             }
         }
     }
