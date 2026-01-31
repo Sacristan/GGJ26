@@ -9,7 +9,12 @@ public class Incinerator : MonoBehaviour
 
         if (other.gameObject.TryGetComponent(out GrabbableRagdollBodypart bodypart))
         {
-            NPCSpawner.Instance.NPCHandled(bodypart.Ragdoll.NPC);
+            var ragdoll = bodypart.Ragdoll;
+
+            if (!ragdoll.IsInStandingMode)
+            {
+                NPCSpawner.Instance.NPCHandled(bodypart.Ragdoll.NPC);
+            }
         }
     }
 }

@@ -55,14 +55,14 @@ public class NPCLocomotion : MonoBehaviour
     [SerializeField] float moveSpeed = 2.5f;
     [SerializeField] float rotateSpeed = 10f;
     [SerializeField] float navDelayTimer = 1f;
-    
+
     Transform targetLoc;
 
     public void SetTarget(Transform target)
     {
         targetLoc = target;
     }
-    
+
     private bool allowNavigation = true;
     bool AllowNavigation => allowNavigation;
 
@@ -131,18 +131,27 @@ public class NPCLocomotion : MonoBehaviour
 
         if (targetLoc)
         {
-            float d = Vector3.Distance(transform.position, targetLoc.position);
-
-            if (d > stopDistance)
-                agent.SetDestination(targetLoc.position);
-            else
+            if (IsCloseEnoughToTarget())
                 agent.ResetPath();
+            else
+                agent.SetDestination(targetLoc.position);
         }
 
         animator.SetBool(
             "Moving",
             agent.hasPath && agent.remainingDistance > agent.stoppingDistance
         );
+    }
+
+    public bool IsCloseEnoughToTarget()
+    {
+        Vector3 a = transform.position;
+        a.y = 0;
+        Vector3 b = targetLoc.position;
+        b.y = 0;
+
+        float d = Vector3.Distance(a, b);
+        return d < stopDistance;
     }
 
     void FixedUpdate()

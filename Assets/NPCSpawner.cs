@@ -9,12 +9,15 @@ public class NPCSpawner : MonoBehaviour
     public static NPCSpawner Instance { get; private set; }
 
     [SerializeField] private InspectLoc inspectLoc;
+    [SerializeField] private InspectLoc exitLoc;
     [SerializeField] private InspectLoc[] queueLocs;
     [SerializeField] private NPC[] npcToSpawn;
 
     private List<NPC> queuedNPCs = new List<NPC>();
     private NPC currentInspectingNPC;
 
+    public InspectLoc ExitLoc => exitLoc;
+    
     private void Awake()
     {
         Instance = this;
@@ -66,6 +69,7 @@ public class NPCSpawner : MonoBehaviour
     private void FreeInspectPoint()
     {
         currentInspectingNPC = null;
+        MoveToInspectPoint();
     }
 
     private void MoveQueueForward()
@@ -83,7 +87,11 @@ public class NPCSpawner : MonoBehaviour
     {
         Destroy(npc.gameObject);
         FreeInspectPoint();
-        MoveToInspectPoint();
+    }
+    
+    public void MarkSafe(NPC npc)
+    {  
+        FreeInspectPoint();
     }
 
     private void SpawnNPCInQueue(int slotIndex)
@@ -100,4 +108,6 @@ public class NPCSpawner : MonoBehaviour
 
         queuedNPCs.Add(newNPC);
     }
+
+
 }
