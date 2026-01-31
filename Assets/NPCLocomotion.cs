@@ -10,6 +10,7 @@ public class NPCLocomotion : MonoBehaviour
     [SerializeField] Transform inspectLoc;
     [SerializeField] float stopDistance = 1f;
     [SerializeField] float moveSpeed = 2.5f;
+    [SerializeField] float rotateSpeed = 10f;
 
     bool AllowNavigation => true;
 
@@ -51,6 +52,17 @@ public class NPCLocomotion : MonoBehaviour
         if (!agent.hasPath) return;
 
         Vector3 target = agent.nextPosition;
+        Vector3 dir = target - rb.position;
+        dir.y = 0f;
+
+        if (dir.sqrMagnitude > 0.0001f)
+        {
+            Quaternion targetRot = Quaternion.LookRotation(dir);
+            rb.MoveRotation(
+                Quaternion.Slerp(rb.rotation, targetRot, rotateSpeed * Time.fixedDeltaTime)
+            );
+        }
+
         Vector3 newPos = Vector3.MoveTowards(
             rb.position,
             target,
