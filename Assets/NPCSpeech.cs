@@ -6,6 +6,8 @@ using Random = UnityEngine.Random;
 
 public class NPCSpeech : MonoBehaviour
 {
+    public event System.Action OnSaidStuff;
+    
     public class SpeechHook : MonoBehaviour
     {
         public void Play(NPCSpeech speech, AudioClip clip, Action callback, float volume = 1.0f, float pitch = 1.0f)
@@ -104,6 +106,8 @@ public class NPCSpeech : MonoBehaviour
 
     private void SayStuff(AudioClip audioClip, bool doOverride = false, float volume = 1.0f)
     {
+        
+        
         if (doOverride)
         {
             if (currentHook != null) currentHook.Kill();
@@ -113,6 +117,8 @@ public class NPCSpeech : MonoBehaviour
             if (currentHook != null) return;
         }
 
+        OnSaidStuff?.Invoke();
+        
         currentHook = Instantiate(audioSourcePrefab).gameObject.AddComponent<SpeechHook>();
         currentHook.Play(this, audioClip, () => currentHook = null, volume, pitch);
     }

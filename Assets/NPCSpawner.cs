@@ -69,11 +69,13 @@ public class NPCSpawner : MonoBehaviour
 
     void SayArrivalLineOnceReady(NPC npc)
     {
+        
         StartCoroutine(Routine());
 
         IEnumerator Routine()
         {
             yield return new WaitUntil(() => npc.Locomotion.IsCloseEnoughToTarget());
+            npc.ArrivedAtInspection();//TODO dirty af
             npc.speech.Say(CharacterSpeech.SpeechType.Arrive, delay: 1f);
         }
     }

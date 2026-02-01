@@ -44,6 +44,42 @@ public class NPC : MonoBehaviour
     {
         RandomiseLook();
         RandomisePersonality();
+
+        ragdoll.OnGrabStateChanged += (x) => ResetIdle();
+        ragdoll.OnGotSlapped += () => ResetIdle();
+        ragdoll.OnGotUp += () => ResetIdle();
+        ragdoll.OnThrown += () => ResetIdle();
+        speech.OnSaidStuff += () => ResetIdle();
+    }
+
+    private float idleTimer;
+    private float idleSayInterval = 10f;
+
+    void Update()
+    {
+        if (!atInspection || !ragdoll.IsInStandingMode)
+        {
+            ResetIdle();
+            return;
+        }
+
+        idleTimer += Time.deltaTime;
+
+        if (idleTimer >= idleSayInterval)
+        {
+            idleTimer = 0f;
+            DoThing();
+        }
+    }
+
+    public void ResetIdle()
+    {
+        idleTimer = 0f;
+    }
+
+    void DoThing()
+    {
+        speech.Say(CharacterSpeech.SpeechType.Reminder);
     }
 
     public void MoveTo(InspectLoc inspectLoc)
@@ -77,6 +113,7 @@ public class NPC : MonoBehaviour
     public void Incinerate()
     {
         if (incinerateRoutine != null) return;
+        atInspection = false;
         OnIncinerated?.Invoke(this);
         speech.DieSFX();
         incinerateRoutine = StartCoroutine(Routine());
@@ -94,6 +131,7 @@ public class NPC : MonoBehaviour
     public void MarkSafe()
     {
         if (markSafeRoutine != null) return;
+        atInspection = false;
         OnSaved?.Invoke(this);
         markSafeRoutine = StartCoroutine(Routine());
 
@@ -106,5 +144,12 @@ public class NPC : MonoBehaviour
             yield return new WaitUntil(() => Locomotion.IsCloseEnoughToTarget());
             Destroy(gameObject);
         }
+    }
+
+    private bool atInspection = false;
+
+    public void ArrivedAtInspection()
+    {
+        atInspection = true;
     }
 }
