@@ -15,7 +15,7 @@ public partial class GrabbableRagdoll : MonoBehaviour, IRagdollAnimator2Receiver
     public event System.Action OnGotUp;
     public event System.Action<bool> OnGrabStateChanged;
     public event System.Action OnThrown;
-    
+    public event System.Action OnGotSlapped;
     
     [SerializeField] private GrabbableRagdollConfig _config;
     public GrabbableRagdollConfig Config => _config;
@@ -394,10 +394,18 @@ public partial class GrabbableRagdoll : MonoBehaviour, IRagdollAnimator2Receiver
             _throwRoutine = null;
         }
     }
-
+    
     void IRagdollAnimator2Receiver.RagdollAnimator2_OnCollisionEnterEvent(RA2BoneCollisionHandler bone,
         Collision collision)
     {
+        if (collision.gameObject.layer == LayerMask.NameToLayer("Hand"))
+        {
+            if (collision.relativeVelocity.magnitude > 1f)
+            {
+                if(bone.BodyBoneID == ERagdollBoneID.Head) OnGotSlapped?.Invoke();
+            }
+        }
+        
         TryFallOnCollision(bone, collision);
     }
 

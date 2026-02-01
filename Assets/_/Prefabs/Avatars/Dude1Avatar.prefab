@@ -47,6 +47,7 @@ MonoBehaviour:
   audioSourcePrefab: {fileID: 5203447185371969387, guid: 6075df3b0be696b4da79c6c1c2eb61ef, type: 3}
   characterSpeech: {fileID: 11400000, guid: 1f206ae5513306b42b80e0abe814a85f, type: 2}
   deathSFX: {fileID: 8300000, guid: 71d35ff1f7646f24a87c3216e372ecdd, type: 3}
+  slapSFX: {fileID: 8300000, guid: 270c5f13069e8f24ba4ecf6a1ce66e37, type: 3}
 --- !u!1001 &2592911351442760532
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4118,6 +4119,9 @@ MonoBehaviour:
   moveSpeed: 2.5
   rotateSpeed: 50
   navDelayTimer: 2
+  finalFaceAngleDeg: 3
+  finalFaceSpeed: 12
+  useTargetRotation: 1
 --- !u!195 &3236986614226841743
 NavMeshAgent:
   m_ObjectHideFlags: 0

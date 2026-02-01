@@ -38,6 +38,7 @@ public class NPCSpeech : MonoBehaviour
     [SerializeField] private AudioSource audioSourcePrefab;
     [SerializeField] CharacterSpeech characterSpeech;
     [SerializeField] private AudioClip deathSFX;
+    [SerializeField] private AudioClip slapSFX;
 
     private NPC _npc;
 
@@ -49,7 +50,30 @@ public class NPCSpeech : MonoBehaviour
 
         pitch = Random.Range(0.8f, 1.2f);
         _npc.ragdoll.OnGrabStateChanged += OnNPCGrabbed;
+        _npc.ragdoll.OnGotSlapped += OnNPCSlapped;
     }
+
+    private Coroutine slapRoutine = null;
+
+    private float lastSlapTime = 0f;
+
+    private const float SlapTimeOut = 0.25f;
+
+    private void OnNPCSlapped()
+    {
+        if (Time.time - lastSlapTime >= SlapTimeOut)
+        {
+            lastSlapTime = Time.time;
+            
+            DoSFX(slapSFX, 0.8f, () =>
+            {
+                currentSFXHook = null;
+            });
+        }
+
+        Say(CharacterSpeech.SpeechType.Slapped, 0.5f);
+    }
+
 
     private void OnNPCGrabbed(bool gotGrabbed)
     {
@@ -91,5 +115,15 @@ public class NPCSpeech : MonoBehaviour
 
         currentHook = Instantiate(audioSourcePrefab).gameObject.AddComponent<SpeechHook>();
         currentHook.Play(this, audioClip, () => currentHook = null, volume, pitch);
+    }
+
+    private SpeechHook currentSFXHook = null;
+
+    private void DoSFX(AudioClip audioClip, float volume = 1.0f, System.Action callback = null)
+    {
+        if (currentSFXHook != null) currentSFXHook.Kill();
+
+        currentSFXHook = Instantiate(audioSourcePrefab).gameObject.AddComponent<SpeechHook>();
+        currentSFXHook.Play(this, audioClip, callback, volume, pitch);
     }
 }
