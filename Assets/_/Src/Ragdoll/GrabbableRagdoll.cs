@@ -400,7 +400,7 @@ public partial class GrabbableRagdoll : MonoBehaviour, IRagdollAnimator2Receiver
     {
         if (collision.gameObject.layer == LayerMask.NameToLayer("Hand") && IsInStandingMode)
         {
-            if (collision.impulse.magnitude > 0.5f)
+            if (collision.impulse.magnitude > 2f)
             {
                 if (bone.BodyBoneID == ERagdollBoneID.Head) OnGotSlapped?.Invoke();
             }
