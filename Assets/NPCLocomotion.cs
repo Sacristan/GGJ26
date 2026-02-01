@@ -58,6 +58,10 @@ public class NPCLocomotion : MonoBehaviour
 
     Transform targetLoc;
 
+    [SerializeField] float finalFaceAngleDeg = 3f; // considered "aligned"
+    [SerializeField] float finalFaceSpeed = 12f; // can reuse rotateSpeed if you want
+    [SerializeField] bool useTargetRotation = true;
+
     public void SetTarget(Transform target)
     {
         targetLoc = target;
@@ -145,41 +149,73 @@ public class NPCLocomotion : MonoBehaviour
 
     public bool IsCloseEnoughToTarget()
     {
-        Vector3 a = transform.position;
+        if (!targetLoc) return true;
+
+        Vector3 a = rb.position;
         a.y = 0;
         Vector3 b = targetLoc.position;
         b.y = 0;
 
-        float d = Vector3.Distance(a, b);
-        return d < stopDistance;
+        return Vector3.Distance(a, b) < stopDistance;
     }
 
     void FixedUpdate()
     {
-        if (!agent.hasPath) return;
+        if (!AllowNavigation) return;
 
-        Vector3 target = agent.nextPosition;
-        Vector3 dir = target - rb.position;
-        dir.y = 0f;
+        // Are we actively moving along a nav path?
+        bool movingAlongPath = agent.hasPath && agent.remainingDistance > agent.stoppingDistance;
 
-        if (dir.sqrMagnitude > 0.0001f)
+        // Are we at/near the destination and should "finish facing"?
+        bool shouldFinalFace = targetLoc != null && IsCloseEnoughToTarget();
+
+        // ---------------- ROTATION ----------------
+        if (movingAlongPath)
         {
-            Quaternion targetRot = Quaternion.LookRotation(dir);
+            // Rotate towards movement direction (same feel as before)
+            Vector3 target = agent.nextPosition;
+            Vector3 dir = target - rb.position;
+            dir.y = 0f;
 
-            rb.MoveRotation(
-                Quaternion.Slerp(rb.rotation, targetRot, rotateSpeed * Time.fixedDeltaTime)
-            );
+            if (dir.sqrMagnitude > 0.0001f)
+            {
+                Quaternion targetRot = Quaternion.LookRotation(dir);
+                rb.MoveRotation(
+                    Quaternion.Slerp(rb.rotation, targetRot, rotateSpeed * Time.fixedDeltaTime)
+                );
+            }
         }
+        else if (shouldFinalFace)
+        {
+            // Rotate to match the destination transform's Z-forward (its world forward)
+            Vector3 fwd = targetLoc.forward;
+            fwd.y = 0f;
+
+            if (fwd.sqrMagnitude > 0.0001f)
+            {
+                Quaternion desiredRot = Quaternion.LookRotation(fwd);
+                rb.MoveRotation(
+                    Quaternion.Slerp(rb.rotation, desiredRot, rotateSpeed * Time.fixedDeltaTime)
+                );
+            }
+        }
+
+        // ---------------- POSITION ----------------
+        // Only push position while we're actually following a path.
+        if (!movingAlongPath) return;
 
         Vector3 newPos = Vector3.MoveTowards(
             rb.position,
-            target,
+            agent.nextPosition,
             moveSpeed * Time.fixedDeltaTime
         );
 
         rb.MovePosition(newPos);
+
+        // Keep the agent synced to the rigidbody
         agent.nextPosition = rb.position;
     }
+
 
     public void Warp(Vector3 position)
     {
