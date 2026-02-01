@@ -17,11 +17,13 @@ public class GameManager : MonoBehaviour
         Instance = this;
     }
 
+    private const string WelcomeText = "Welcome to <b><color=yellow>Omicron Persei 3</color></b>!";
+
     private const string ObjectiveText =
         "Incinerate the <b><color=green>Infected</color></b>! Save the rest! The world counts on us...";
 
     private const string IntroText =
-        "<b>Glory to <color=red>PATROL</color>!</b>";
+        "<b>Glory to <color=red>HYPNOFROG</color>!</b>";
 
     private const string GoodJob = "<color=green>Good job!</color>";
     private const string BadJob = "<b><color=red>CITATION!</color></b>";
@@ -41,7 +43,7 @@ public class GameManager : MonoBehaviour
 
         _uiMarquee = FindAnyObjectByType<UIMarquee>();
 
-        _uiMarquee.SetText($"{ObjectiveText} {IntroText}");
+        _uiMarquee.SetText($"{WelcomeText} {ObjectiveText} {IntroText}");
         StartCoroutine(TextRoutine());
 
         IEnumerator TextRoutine()
@@ -96,7 +98,7 @@ public class GameManager : MonoBehaviour
     void GoodJob_Incinerated_Infected()
     {
         GotCorrect();
-        _uiMarquee.SetText($"{GoodJob} world is a safer place! {GetSavedText()}", overrideCurrent: true, speed: 60);
+        _uiMarquee.SetText($"{GoodJob} World is a safer place! {GetSavedText()}", overrideCurrent: true, speed: 60);
     }
 
     void GoodJob_Saved()
@@ -110,14 +112,14 @@ public class GameManager : MonoBehaviour
     void Citation_Incinerated_Uninfected()
     {
         GotCitation();
-        _uiMarquee.SetText($"{BadJob} a healthy citizen was incinerated! {GetCitationsText()}", overrideCurrent: true,
+        _uiMarquee.SetText($"{BadJob} A healthy citizen was incinerated! {GetCitationsText()}", overrideCurrent: true,
             speed: 60);
     }
 
     void Citation_LetInfectedLive()
     {
         GotCitation();
-        _uiMarquee.SetText($"{BadJob} an infected was allowed to endanger our citizens! {GetCitationsText()}",
+        _uiMarquee.SetText($"{BadJob} An infected was allowed to endanger our citizens! {GetCitationsText()}",
             overrideCurrent: true, speed: 60);
     }
 
