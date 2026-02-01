@@ -9,6 +9,9 @@ public class GameManager : MonoBehaviour
 
     private UIMarquee _uiMarquee;
 
+    [SerializeField] private AudioClip rightChoiceSFX;
+    [SerializeField] private AudioClip wrongChoiceSFX;
+
     private void Awake()
     {
         Instance = this;
@@ -27,9 +30,12 @@ public class GameManager : MonoBehaviour
     private int citations = 0;
 
     private bool passiveShowStats = false;
+    private AudioSource _audioSource;
 
     private void Start()
     {
+        _audioSource = GetComponent<AudioSource>();
+
         NPC.OnSaved += NPCOnOnSaved;
         NPC.OnIncinerated += NPCOnOnIncinerated;
 
@@ -89,25 +95,51 @@ public class GameManager : MonoBehaviour
 
     void GoodJob_Incinerated_Infected()
     {
+        GotCorrect();
         _uiMarquee.SetText($"{GoodJob} world is a safer place! {GetSavedText()}", overrideCurrent: true, speed: 60);
     }
 
     void GoodJob_Saved()
     {
         peopleSaved++;
-        _uiMarquee.SetText($"{GoodJob} A thankful citizen added to our flock! {GetSavedText()}", overrideCurrent: true, speed: 60);
+        GotCorrect();
+        _uiMarquee.SetText($"{GoodJob} A thankful citizen added to our flock! {GetSavedText()}", overrideCurrent: true,
+            speed: 60);
     }
 
     void Citation_Incinerated_Uninfected()
     {
-        citations++;
-        _uiMarquee.SetText($"{BadJob} a healthy citizen was incinerated! {GetCitationsText()}", overrideCurrent: true, speed: 60);
+        GotCitation();
+        _uiMarquee.SetText($"{BadJob} a healthy citizen was incinerated! {GetCitationsText()}", overrideCurrent: true,
+            speed: 60);
     }
 
     void Citation_LetInfectedLive()
     {
-        citations++;
+        GotCitation();
         _uiMarquee.SetText($"{BadJob} an infected was allowed to endanger our citizens! {GetCitationsText()}",
             overrideCurrent: true, speed: 60);
+    }
+
+    void GotCorrect()
+    {
+        PlaySFX(rightChoiceSFX);
+    }
+
+    void GotCitation()
+    {
+        citations++;
+        PlaySFX(wrongChoiceSFX);
+    }
+
+    void PlaySFX(AudioClip clip)
+    {
+        StartCoroutine(Routine());
+
+        IEnumerator Routine()
+        {
+            yield return new WaitForSeconds(1f);
+            _audioSource.PlayOneShot(clip);
+        }
     }
 }

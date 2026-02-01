@@ -20,8 +20,12 @@ public class StampOfApproval : MonoBehaviour
     [SerializeField] private float surfaceOffset = 0.01f; // avoid z-fighting
     [SerializeField] private float randomSpinDeg = 180f; // rotate around normal
 
+    AudioSource _audioSource;
+    [SerializeField] private AudioClip[] _clips;
+
     private void Start()
     {
+        _audioSource = GetComponent<AudioSource>();
         _interactable = GetComponent<XRGrabInteractable>();
 
         _interactable.selectEntered.AddListener((x) => isSelected = true);
@@ -79,6 +83,16 @@ public class StampOfApproval : MonoBehaviour
 
         decal.transform.SetParent(collision.gameObject.transform, true);
         // decal.transform.parent = collision.gameObject.transform;
+
+        PlaySFX();
+    }
+
+    void PlaySFX()
+    {
+        if (_audioSource.isPlaying) return;
+        _audioSource.pitch = Random.Range(0.8f, 1.2f);
+        _audioSource.clip = _clips[Random.Range(0, _clips.Length)];
+        _audioSource.Play();
     }
 
     class ColliderHook : MonoBehaviour

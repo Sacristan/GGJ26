@@ -218,6 +218,9 @@ MonoBehaviour:
   depth: 0.35
   surfaceOffset: 0.05
   randomSpinDeg: 10
+  _clips:
+  - {fileID: 8300000, guid: 6b53d03abe3fc114292a5541d6cf7820, type: 3}
+  - {fileID: 8300000, guid: 23a9033d62aebea48957ec1718dab835, type: 3}
 --- !u!1 &9007295060839870496
 GameObject:
   m_ObjectHideFlags: 0
