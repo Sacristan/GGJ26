@@ -6,18 +6,48 @@ using Random = UnityEngine.Random;
 
 public class NPCSpeech : MonoBehaviour
 {
+    public class SpeechHook : MonoBehaviour
+    {
+        public void Play(NPCSpeech speech, AudioClip clip, Action callback, float volume = 1.0f, float pitch = 1.0f)
+        {
+            transform.position = speech.transform.position;
+
+            var ac = GetComponent<AudioSource>();
+            ac.pitch = pitch;
+            ac.clip = clip;
+            ac.volume = volume;
+            ac.Play();
+
+            StartCoroutine(Routine());
+
+
+            IEnumerator Routine()
+            {
+                yield return new WaitWhile(() => ac.isPlaying);
+                callback?.Invoke();
+                Kill();
+            }
+        }
+
+        public void Kill()
+        {
+            Destroy(gameObject);
+        }
+    }
+
+    [SerializeField] private AudioSource audioSourcePrefab;
     [SerializeField] CharacterSpeech characterSpeech;
     [SerializeField] private AudioClip deathSFX;
 
-    private AudioSource _source;
     private NPC _npc;
+
+    private float pitch;
 
     private void Start()
     {
-        _source = GetComponent<AudioSource>();
         _npc = GetComponentInParent<NPC>();
 
-        _source.pitch = Random.Range(0.8f, 1.2f);
+        pitch = Random.Range(0.8f, 1.2f);
         _npc.ragdoll.OnGrabStateChanged += OnNPCGrabbed;
     }
 
@@ -43,13 +73,23 @@ public class NPCSpeech : MonoBehaviour
 
     public void DieSFX()
     {
-        AudioSource.PlayClipAtPoint(deathSFX, transform.position);
+        SayStuff(deathSFX, volume: 0.5f);
     }
 
-    private void SayStuff(AudioClip audioClip)
+    private SpeechHook currentHook = null;
+
+    private void SayStuff(AudioClip audioClip, bool doOverride = false, float volume = 1.0f)
     {
-        if (_source.isPlaying || audioClip == null) return;
-        _source.clip = audioClip;
-        _source.Play();
+        if (doOverride)
+        {
+            if (currentHook != null) currentHook.Kill();
+        }
+        else
+        {
+            if (currentHook != null) return;
+        }
+
+        currentHook = Instantiate(audioSourcePrefab).gameObject.AddComponent<SpeechHook>();
+        currentHook.Play(this, audioClip, () => currentHook = null, volume, pitch);
     }
 }
