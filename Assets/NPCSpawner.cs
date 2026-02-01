@@ -17,7 +17,7 @@ public class NPCSpawner : MonoBehaviour
     private NPC currentInspectingNPC;
 
     public InspectLoc ExitLoc => exitLoc;
-    
+
     private void Awake()
     {
         Instance = this;
@@ -55,7 +55,8 @@ public class NPCSpawner : MonoBehaviour
 
         // TODO: Call NPC method to move to inspect location
         currentInspectingNPC.MoveTo(inspectLoc);
-
+        SayArrivalLineOnceReady(currentInspectingNPC);
+        
         // Move queue forward
         MoveQueueForward();
 
@@ -63,6 +64,17 @@ public class NPCSpawner : MonoBehaviour
         if (queuedNPCs.Count < queueLocs.Length)
         {
             SpawnNPCInQueue(queuedNPCs.Count);
+        }
+    }
+
+    void SayArrivalLineOnceReady(NPC npc)
+    {
+        StartCoroutine(Routine());
+
+        IEnumerator Routine()
+        {
+            yield return new WaitUntil(() => npc.Locomotion.IsCloseEnoughToTarget());
+            npc.speech.Say(CharacterSpeech.SpeechType.Arrive, delay: 1f);
         }
     }
 
@@ -88,9 +100,9 @@ public class NPCSpawner : MonoBehaviour
         Destroy(npc.gameObject);
         FreeInspectPoint();
     }
-    
+
     public void MarkSafe(NPC npc)
-    {  
+    {
         FreeInspectPoint();
     }
 
@@ -108,6 +120,4 @@ public class NPCSpawner : MonoBehaviour
 
         queuedNPCs.Add(newNPC);
     }
-
-
 }
