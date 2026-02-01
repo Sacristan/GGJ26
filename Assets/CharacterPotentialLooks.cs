@@ -25,6 +25,8 @@ public class CharacterPotentialLooks : ScriptableObject
 
     [SerializeField] public Look shirtLook;
 
+    [Range(0f, 1f)] [SerializeField] private float chanceToBeInfected = 0.35f;
+
     Look GetBody(bool isInfected) => isInfected ? bodyInfected : bodyFine;
     Look GetTrousers(bool isInfected) => trousers;
     Look GetHair(bool isInfected) => hairLook;
@@ -33,7 +35,7 @@ public class CharacterPotentialLooks : ScriptableObject
 
     public (bool, Material[]) Randomise()
     {
-        bool isInfected = Random.value < 0.5f;
+        bool isInfected = Random.value < chanceToBeInfected;
 
         Material[] materials = new[]
         {
