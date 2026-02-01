@@ -16,7 +16,7 @@ public partial class GrabbableRagdoll : MonoBehaviour, IRagdollAnimator2Receiver
     public event System.Action<bool> OnGrabStateChanged;
     public event System.Action OnThrown;
     public event System.Action OnGotSlapped;
-    
+
     [SerializeField] private GrabbableRagdollConfig _config;
     public GrabbableRagdollConfig Config => _config;
     private static readonly List<Collider> tmpColliderList = new(16);
@@ -146,7 +146,7 @@ public partial class GrabbableRagdoll : MonoBehaviour, IRagdollAnimator2Receiver
         _npc = GetComponentInParent<NPC>();
         _ragdoll = GetComponent<RagdollAnimator2>();
         _locomotion = _ragdoll.GetBaseTransform.GetComponentInChildren<NPCLocomotion>();
-        
+
         yield return new WaitForEndOfFrame();
 
         if (!_isInitialized)
@@ -320,7 +320,7 @@ public partial class GrabbableRagdoll : MonoBehaviour, IRagdollAnimator2Receiver
                 return;
             }
         }
-        
+
         OnGotUp?.Invoke();
         SetRagdollStanding();
     }
@@ -382,7 +382,7 @@ public partial class GrabbableRagdoll : MonoBehaviour, IRagdollAnimator2Receiver
             if (maxBoneAngularSpeed > 0f)
                 rb.angularVelocity = Vector3.ClampMagnitude(rb.angularVelocity, maxBoneAngularSpeed);
         });
-        
+
         OnThrown?.Invoke();
 
         IEnumerator ThrowCooldown()
@@ -394,18 +394,18 @@ public partial class GrabbableRagdoll : MonoBehaviour, IRagdollAnimator2Receiver
             _throwRoutine = null;
         }
     }
-    
+
     void IRagdollAnimator2Receiver.RagdollAnimator2_OnCollisionEnterEvent(RA2BoneCollisionHandler bone,
         Collision collision)
     {
-        if (collision.gameObject.layer == LayerMask.NameToLayer("Hand"))
+        if (collision.gameObject.layer == LayerMask.NameToLayer("Hand") && IsInStandingMode)
         {
-            if (collision.relativeVelocity.magnitude > 1f)
+            if (collision.impulse.magnitude > 0.5f)
             {
-                if(bone.BodyBoneID == ERagdollBoneID.Head) OnGotSlapped?.Invoke();
+                if (bone.BodyBoneID == ERagdollBoneID.Head) OnGotSlapped?.Invoke();
             }
         }
-        
+
         TryFallOnCollision(bone, collision);
     }
 

@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
+    public event System.Action OnGameStarted;
     public static GameManager Instance { get; private set; }
 
     private UIMarquee _uiMarquee;
@@ -33,45 +34,65 @@ public class GameManager : MonoBehaviour
 
     private bool passiveShowStats = false;
     private AudioSource _audioSource;
+    private StampOfApproval _stampOfApproval;
+    [SerializeField] private GameObject bgSphere;
+    [SerializeField] private GameObject level;
 
     private void Start()
     {
         _audioSource = GetComponent<AudioSource>();
+        _stampOfApproval = FindAnyObjectByType<StampOfApproval>();
+
+        _stampOfApproval.OnSelected += StampOfApprovalOnOnSelected;
 
         NPC.OnSaved += NPCOnOnSaved;
         NPC.OnIncinerated += NPCOnOnIncinerated;
 
         _uiMarquee = FindAnyObjectByType<UIMarquee>();
+    }
+
+    private void StampOfApprovalOnOnSelected()
+    {
+        _stampOfApproval.OnSelected -= StampOfApprovalOnOnSelected;
+
+        level.SetActive(true);
+        bgSphere.SetActive(false);
+        StartGame();
+    }
+
+    void StartGame()
+    {
+        OnGameStarted?.Invoke();
 
         _uiMarquee.SetText($"{WelcomeText} {ObjectiveText} {IntroText}");
         StartCoroutine(TextRoutine());
+    }
 
-        IEnumerator TextRoutine()
+    IEnumerator TextRoutine()
+    {
+        var wait = new WaitForSeconds(3f);
+
+        do
         {
-            var wait = new WaitForSeconds(3f);
+            yield return wait;
 
-            do
+            if (!_uiMarquee.IsVisible)
             {
-                yield return wait;
-
-                if (!_uiMarquee.IsVisible)
+                if (passiveShowStats)
                 {
-                    if (passiveShowStats)
-                    {
-                        _uiMarquee.SetText(
-                            $"{GetSavedText()} {GetCitationsText()}",
-                            overrideCurrent: false, speed: 40);
-                    }
-
-                    else
-                    {
-                        _uiMarquee.SetText(ObjectiveText, overrideCurrent: false, speed: 60);
-                    }
-
-                    passiveShowStats = !passiveShowStats;
+                    _uiMarquee.SetText(
+                        $"{GetSavedText()} {GetCitationsText()}",
+                        overrideCurrent: false, speed: 40);
                 }
-            } while (true);
-        }
+
+                else
+                {
+                    _uiMarquee.SetText(ObjectiveText, overrideCurrent: false, speed: 60);
+                }
+
+                passiveShowStats = !passiveShowStats;
+            }
+        } while (true);
     }
 
     string GetSavedText() => $"Saved: <color=green>{peopleSaved}</color>";

@@ -8,6 +8,8 @@ using Random = UnityEngine.Random;
 
 public class StampOfApproval : MonoBehaviour
 {
+    public event System.Action OnSelected;
+    
     private XRGrabInteractable _interactable;
 
     bool isSelected = false;
@@ -49,6 +51,7 @@ public class StampOfApproval : MonoBehaviour
     
     private void OnSelectEnter(SelectEnterEventArgs arg0)
     {
+        OnSelected?.Invoke();
         allowMovement = false;
         isSelected = true;
         SetLayerRecursive(gameObject, StampActiveLayer);
