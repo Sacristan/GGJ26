@@ -143,6 +143,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   characterSpeech: {fileID: 11400000, guid: 1f206ae5513306b42b80e0abe814a85f, type: 2}
+  deathSFX: {fileID: 8300000, guid: 71d35ff1f7646f24a87c3216e372ecdd, type: 3}
 --- !u!1001 &2592911351442760532
 PrefabInstance:
   m_ObjectHideFlags: 0

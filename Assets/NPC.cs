@@ -78,6 +78,7 @@ public class NPC : MonoBehaviour
     {
         if (incinerateRoutine != null) return;
         OnIncinerated?.Invoke(this);
+        speech.DieSFX();
         incinerateRoutine = StartCoroutine(Routine());
 
         IEnumerator Routine()

@@ -1,11 +1,13 @@
 using System;
 using System.Collections;
+using Unity.XR.GoogleVr;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
 public class NPCSpeech : MonoBehaviour
 {
     [SerializeField] CharacterSpeech characterSpeech;
+    [SerializeField] private AudioClip deathSFX;
 
     private AudioSource _source;
     private NPC _npc;
@@ -16,7 +18,6 @@ public class NPCSpeech : MonoBehaviour
         _npc = GetComponentInParent<NPC>();
 
         _source.pitch = Random.Range(0.8f, 1.2f);
-
         _npc.ragdoll.OnGrabStateChanged += OnNPCGrabbed;
     }
 
@@ -38,6 +39,11 @@ public class NPCSpeech : MonoBehaviour
             yield return new WaitForSeconds(delay);
             SayStuff(clip);
         }
+    }
+
+    public void DieSFX()
+    {
+        AudioSource.PlayClipAtPoint(deathSFX, transform.position);
     }
 
     private void SayStuff(AudioClip audioClip)

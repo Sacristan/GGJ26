@@ -2326,11 +2326,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 269346896}
   m_CullTransparentMesh: 1
---- !u!4 &323190182 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 400000, guid: 756d99540142b5e4a8d174e18a6310d9, type: 3}
-  m_PrefabInstance: {fileID: 965244064}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &329674977
 GameObject:
   m_ObjectHideFlags: 0
@@ -7693,103 +7688,6 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 2397425259038431700, guid: fa5ef3b56cfeb4f4ba855cdf2610a578, type: 3}
   m_PrefabInstance: {fileID: 849324472}
   m_PrefabAsset: {fileID: 0}
---- !u!1001 &965244064
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 1159235713}
-    m_Modifications:
-    - target: {fileID: 100000, guid: 756d99540142b5e4a8d174e18a6310d9, type: 3}
-      propertyPath: m_Name
-      value: FX_Fire
-      objectReference: {fileID: 0}
-    - target: {fileID: 400000, guid: 756d99540142b5e4a8d174e18a6310d9, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 2.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 400000, guid: 756d99540142b5e4a8d174e18a6310d9, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 400000, guid: 756d99540142b5e4a8d174e18a6310d9, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 2.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 400000, guid: 756d99540142b5e4a8d174e18a6310d9, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -0.352
-      objectReference: {fileID: 0}
-    - target: {fileID: 400000, guid: 756d99540142b5e4a8d174e18a6310d9, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -0.2400002
-      objectReference: {fileID: 0}
-    - target: {fileID: 400000, guid: 756d99540142b5e4a8d174e18a6310d9, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0.18
-      objectReference: {fileID: 0}
-    - target: {fileID: 400000, guid: 756d99540142b5e4a8d174e18a6310d9, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 400000, guid: 756d99540142b5e4a8d174e18a6310d9, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 400000, guid: 756d99540142b5e4a8d174e18a6310d9, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 400000, guid: 756d99540142b5e4a8d174e18a6310d9, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 400000, guid: 756d99540142b5e4a8d174e18a6310d9, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 400000, guid: 756d99540142b5e4a8d174e18a6310d9, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 400000, guid: 756d99540142b5e4a8d174e18a6310d9, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 19800000, guid: 756d99540142b5e4a8d174e18a6310d9, type: 3}
-      propertyPath: scalingMode
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 19800000, guid: 756d99540142b5e4a8d174e18a6310d9, type: 3}
-      propertyPath: LightsModule.light
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 19800000, guid: 756d99540142b5e4a8d174e18a6310d9, type: 3}
-      propertyPath: LightsModule.ratio
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 19800000, guid: 756d99540142b5e4a8d174e18a6310d9, type: 3}
-      propertyPath: TrailModule.enabled
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 19800000, guid: 756d99540142b5e4a8d174e18a6310d9, type: 3}
-      propertyPath: LightsModule.enabled
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 19800000, guid: 756d99540142b5e4a8d174e18a6310d9, type: 3}
-      propertyPath: LightsModule.maxLights
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 19900000, guid: 756d99540142b5e4a8d174e18a6310d9, type: 3}
-      propertyPath: m_Materials.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 756d99540142b5e4a8d174e18a6310d9, type: 3}
 --- !u!1 &976442729
 GameObject:
   m_ObjectHideFlags: 0
@@ -18871,10 +18769,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
-    m_AddedGameObjects:
-    - targetCorrespondingSourceObject: {fileID: 5165125302453241527, guid: e9492f3cb9f335d4c9f593ba4358cb1c, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 323190182}
+    m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e9492f3cb9f335d4c9f593ba4358cb1c, type: 3}
 --- !u!1001 &7723993274642606237
