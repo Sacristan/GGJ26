@@ -18853,9 +18853,13 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 624183583902177516, guid: a799e4d56035ef948b0ad56eb90ad886, type: 3}
+      propertyPath: m_RequestedTrackingOriginMode
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 877649251817243757, guid: a799e4d56035ef948b0ad56eb90ad886, type: 3}
       propertyPath: m_PhysicsLayerMask.m_Bits
-      value: 268435457
+      value: 268435585
       objectReference: {fileID: 0}
     - target: {fileID: 1704085185185596834, guid: a799e4d56035ef948b0ad56eb90ad886, type: 3}
       propertyPath: velocityTracker
@@ -19047,7 +19051,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6883933063769346158, guid: a799e4d56035ef948b0ad56eb90ad886, type: 3}
       propertyPath: m_PhysicsLayerMask.m_Bits
-      value: 268435457
+      value: 268435585
       objectReference: {fileID: 0}
     - target: {fileID: 7014879375275394292, guid: a799e4d56035ef948b0ad56eb90ad886, type: 3}
       propertyPath: m_Name
@@ -19203,9 +19207,17 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1531344478646006833, guid: e970170f4009b0b46873022274d813bc, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 2288979251850280959, guid: e970170f4009b0b46873022274d813bc, type: 3}
       propertyPath: m_Name
       value: StampOfApproval
+      objectReference: {fileID: 0}
+    - target: {fileID: 2288979251850280959, guid: e970170f4009b0b46873022274d813bc, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 2288979251850280959, guid: e970170f4009b0b46873022274d813bc, type: 3}
       propertyPath: m_IsActive
@@ -19250,6 +19262,10 @@ PrefabInstance:
     - target: {fileID: 2372672317760600608, guid: e970170f4009b0b46873022274d813bc, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: -91.183
+      objectReference: {fileID: 0}
+    - target: {fileID: 9007295060839870496, guid: e970170f4009b0b46873022274d813bc, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

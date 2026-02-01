@@ -28,8 +28,8 @@ public class StampOfApproval : MonoBehaviour
         _audioSource = GetComponent<AudioSource>();
         _interactable = GetComponent<XRGrabInteractable>();
 
-        _interactable.selectEntered.AddListener((x) => isSelected = true);
-        _interactable.selectExited.AddListener((x) => isSelected = false);
+        _interactable.selectEntered.AddListener(OnSelectEnter);
+        _interactable.selectExited.AddListener(OnDeselect);
 
         var colliders = GetComponentsInChildren<Collider>();
 
@@ -37,6 +37,21 @@ public class StampOfApproval : MonoBehaviour
         {
             c.gameObject.AddComponent<ColliderHook>().stamp = this;
         }
+    }
+    
+    const int StampActiveLayer = 0;
+    const int StampIdleLayer = 7;
+    
+    private void OnSelectEnter(SelectEnterEventArgs arg0)
+    {
+        isSelected = true;
+        SetLayerRecursive(gameObject, StampActiveLayer);
+    }
+    
+    private void OnDeselect(SelectExitEventArgs arg0)
+    {
+        isSelected = false;
+        SetLayerRecursive(gameObject, StampIdleLayer);
     }
 
     private bool isStampingLocked = false;
@@ -93,6 +108,16 @@ public class StampOfApproval : MonoBehaviour
         _audioSource.pitch = Random.Range(0.8f, 1.2f);
         _audioSource.clip = _clips[Random.Range(0, _clips.Length)];
         _audioSource.Play();
+    }
+
+    public static void SetLayerRecursive(GameObject root, int layer)
+    {
+        if (!root) return;
+
+        root.layer = layer;
+
+        foreach (Transform child in root.transform)
+            SetLayerRecursive(child.gameObject, layer);
     }
 
     class ColliderHook : MonoBehaviour
