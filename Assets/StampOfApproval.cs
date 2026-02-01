@@ -23,6 +23,11 @@ public class StampOfApproval : MonoBehaviour
     AudioSource _audioSource;
     [SerializeField] private AudioClip[] _clips;
 
+    [SerializeField] private Transform pivot;
+    bool allowMovement = true;
+    public float amplitude = 0.05f;
+    public float speed = 3f;
+    
     private void Start()
     {
         _audioSource = GetComponent<AudioSource>();
@@ -44,18 +49,37 @@ public class StampOfApproval : MonoBehaviour
     
     private void OnSelectEnter(SelectEnterEventArgs arg0)
     {
+        allowMovement = false;
         isSelected = true;
         SetLayerRecursive(gameObject, StampActiveLayer);
     }
     
     private void OnDeselect(SelectExitEventArgs arg0)
     {
+        allowMovement = true;
         isSelected = false;
         SetLayerRecursive(gameObject, StampIdleLayer);
     }
 
     private bool isStampingLocked = false;
 
+    void Update()
+    {
+        if (!allowMovement)
+        {
+            pivot.localPosition = Vector3.zero;
+            return;
+        }
+
+        float offset = Mathf.Sin(Time.time * speed) * amplitude;
+
+        Vector3 localUp = pivot.parent
+            ? pivot.parent.InverseTransformDirection(Vector3.up)
+            : Vector3.up;
+
+        pivot.localPosition = localUp * offset;
+    }
+    
     private IEnumerator OnCollisionEnter(Collision other)
     {
         if (isStampingLocked) yield break;
