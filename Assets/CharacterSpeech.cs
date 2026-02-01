@@ -11,7 +11,8 @@ public class CharacterSpeech : ScriptableObject
         Arrive,
         Grabbed,
         Slapped,
-        Reminder
+        Reminder,
+        GotThrough
     }
 
     [Serializable]
@@ -50,6 +51,13 @@ public class CharacterSpeech : ScriptableObject
     [SerializeField] private SpeechData remindEntitled;
     [SerializeField] private SpeechData remindZombie;
 
+    [SerializeField] private SpeechData gotPassedAggressive;
+    [SerializeField] private SpeechData gotPassedCollab;
+    [SerializeField] private SpeechData gotPassedIndiff;
+    [SerializeField] private SpeechData gotPassedAfraid;
+    [SerializeField] private SpeechData gotPassedEntitled;
+    [SerializeField] private SpeechData gotPassedZombie;
+    
     public AudioClip GetSpeechFor(NPC.Personality personality, SpeechType speechType)
     {
         switch (personality)
@@ -65,6 +73,8 @@ public class CharacterSpeech : ScriptableObject
                         return slapAggressive.GetAudioClip();
                     case SpeechType.Reminder:
                         return remindAggressive.GetAudioClip();
+                    case SpeechType.GotThrough:
+                        return gotPassedAggressive.GetAudioClip();
                 }
 
                 break;
@@ -79,6 +89,8 @@ public class CharacterSpeech : ScriptableObject
                         return slapCollab.GetAudioClip();
                     case SpeechType.Reminder:
                         return remindCollab.GetAudioClip();
+                    case SpeechType.GotThrough:
+                        return gotPassedCollab.GetAudioClip();
                 }
 
                 break;
@@ -94,6 +106,8 @@ public class CharacterSpeech : ScriptableObject
                         return slapIndiff.GetAudioClip();
                     case SpeechType.Reminder:
                         return remindIndiff.GetAudioClip();
+                    case SpeechType.GotThrough:
+                        return gotPassedIndiff.GetAudioClip();
                 }
 
                 break;
@@ -109,6 +123,8 @@ public class CharacterSpeech : ScriptableObject
                         return slapAfraid.GetAudioClip();
                     case SpeechType.Reminder:
                         return remindAfraid.GetAudioClip();
+                    case SpeechType.GotThrough:
+                        return gotPassedAfraid.GetAudioClip();
                 }
 
                 break;
@@ -124,6 +140,8 @@ public class CharacterSpeech : ScriptableObject
                         return slapEntitled.GetAudioClip();
                     case SpeechType.Reminder:
                         return remindEntitled.GetAudioClip();
+                    case SpeechType.GotThrough:
+                        return gotPassedEntitled.GetAudioClip();
                 }
 
                 break;
@@ -139,6 +157,8 @@ public class CharacterSpeech : ScriptableObject
                         return slapZombie.GetAudioClip();
                     case SpeechType.Reminder:
                         return remindZombie.GetAudioClip();
+                    case SpeechType.GotThrough:
+                        return gotPassedZombie.GetAudioClip();
                 }
 
                 break;

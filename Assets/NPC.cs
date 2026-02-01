@@ -20,6 +20,7 @@ public class NPC : MonoBehaviour
     public static event System.Action<NPC> OnIncinerated;
     public static event System.Action<NPC> OnSaved;
 
+    [SerializeField] public GrabbableRagdoll ragdoll;
     [SerializeField] private CharacterPotentialLooks charLooks;
     [SerializeField] NPCLocomotion locomotion;
     [SerializeField] CharacterLook look;
@@ -34,6 +35,7 @@ public class NPC : MonoBehaviour
 
     private void OnValidate()
     {
+        if (ragdoll == null) ragdoll = GetComponentInChildren<GrabbableRagdoll>();
         if (locomotion == null) locomotion = GetComponentInChildren<NPCLocomotion>();
         if (speech == null) speech = GetComponentInChildren<NPCSpeech>();
     }
@@ -97,6 +99,7 @@ public class NPC : MonoBehaviour
         IEnumerator Routine()
         {
             NPCSpawner.Instance.MarkSafe(this);
+            speech.Say(CharacterSpeech.SpeechType.GotThrough, 1.5f);
             yield return new WaitForSeconds(1f);
             Locomotion.SetTarget(NPCSpawner.Instance.ExitLoc.transform);
             yield return new WaitUntil(() => Locomotion.IsCloseEnoughToTarget());

@@ -16,12 +16,20 @@ public class NPCSpeech : MonoBehaviour
         _npc = GetComponentInParent<NPC>();
 
         _source.pitch = Random.Range(0.8f, 1.2f);
+
+        _npc.ragdoll.OnGrabStateChanged += OnNPCGrabbed;
+    }
+
+    private void OnNPCGrabbed(bool gotGrabbed)
+    {
+        if (gotGrabbed) Say(CharacterSpeech.SpeechType.Grabbed, 0.5f);
     }
 
     public void Say(CharacterSpeech.SpeechType speechType, float delay = 0.01f)
     {
         var clip = characterSpeech.GetSpeechFor(_npc.GetPersonality, speechType);
-        Debug.Log($"{nameof(NPCSpeech)}::{nameof(Say)} {_npc.GetPersonality}/{speechType} delay: {delay} clip {clip.name}");
+        Debug.Log(
+            $"{nameof(NPCSpeech)}::{nameof(Say)} {_npc.GetPersonality}/{speechType} delay: {delay} clip {clip.name}");
 
         StartCoroutine(Routine());
 
